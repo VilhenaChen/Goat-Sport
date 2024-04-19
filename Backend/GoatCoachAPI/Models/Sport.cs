@@ -14,5 +14,7 @@ namespace GoatCoachAPI.Models
 		public List<Sport_Team>? SportsTeams { get; set; }
 
 		public List<Calendar>? Calendars { get; set; }
+
+		public List<Player>? Players { get; set; }
 	}
 }

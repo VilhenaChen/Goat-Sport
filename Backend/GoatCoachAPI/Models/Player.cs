@@ -15,6 +15,11 @@ namespace GoatCoachAPI.Models
 
 		public string? Attributes { get; set; }
 
+		[Required(ErrorMessage = "Position is required!")]
+		[MinLength(2, ErrorMessage = "Position is too short!")]
+		[MaxLength(100)]
+		public string Position { get; set; }
+
 		public List<Note>? Notes { get; set; }
 
 		public List<Practice_Player>? PracticesPlayers { get; set; }
@@ -32,8 +37,8 @@ namespace GoatCoachAPI.Models
 		[ForeignKey("TeamId")]
 		public Team Team { get; set; }
 
-		public int PositionId { get; set; }
-		[ForeignKey("PositionId")]
-		public Position Position { get; set; }
+		public int SportId { get; set; }
+		[ForeignKey("SportId")]
+		public Sport Sport { get; set; }
 	}
 }

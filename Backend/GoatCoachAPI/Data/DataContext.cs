@@ -85,7 +85,6 @@ namespace GoatCoachAPI.Data
 		public DbSet<Calendar> Calendars { get; set; }
 		public DbSet<Sport> Sports { get; set; }
 		public DbSet<Sport_Team> Sports_Teams { get; set; }
-		public DbSet<Position> Positions { get; set; }
 		public DbSet<Note> Notes { get; set; }
 		public DbSet<Practice> Practices { get; set; }
 		public DbSet<Match> Matches { get; set; }
