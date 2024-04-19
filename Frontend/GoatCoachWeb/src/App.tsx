@@ -3,7 +3,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import "./App.css";
 import { DashboardContainer as Dashboard } from "./pages/Dashboard/DashboardContainer";
 import { ErrorWeb } from "./pages/ErrorWeb/ErrorWeb";
-import { HomePage } from "./pages/HomePage";
+import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPagePresentation as Login } from "./pages/LoginPage/LoginPagePresentation";
 import { useAppSelector } from "./store";
 
