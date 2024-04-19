@@ -6,14 +6,14 @@ import BackgroundImage from "../assets/homePageBackground.png";
 const ErrorTitle = styled(Typography)({
   color: "#33658A",
   fontFamily: "Rubik Mono One",
-  fontSize: "24px",
+  fontSize: "36px",
 });
 
 const ErrorDescription = styled(Typography)({
   color: "white",
   fontFamily: "Rubik",
-  fontSize: "16px",
-  width: "70%",
+  fontSize: "24px",
+  width: "60%",
   fontWeight: 600,
 });
 
@@ -35,7 +35,7 @@ const ErrorContainer = styled("div")({
   width: "50%",
   gap: "10px",
   backgroundColor: "rgba(217,217,217,0.3)",
-  padding: "10px",
+  padding: "24px",
   borderRadius: "16px",
 });
 
