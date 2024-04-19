@@ -1,12 +1,12 @@
 ﻿using GoatCoachAPI.Contracts;
-using GoatCoachAPI.Models;
+using GoatCoachAPI.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoatCoachAPI.Controllers
 {
-	[Authorize]
+    [Authorize]
 	[Route("api/[controller]/[action]")]
 	[ApiController]
 	public class TeamsController : ControllerBase

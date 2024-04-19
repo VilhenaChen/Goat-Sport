@@ -1,8 +1,8 @@
-﻿using GoatCoachAPI.Models;
+﻿using GoatCoachAPI.Data.Models;
 
 namespace GoatCoachAPI.Contracts
 {
-	public interface ITeamRepository : IGenericRepository<Team>
+    public interface ITeamRepository : IGenericRepository<Team>
 	{
 	}
 }

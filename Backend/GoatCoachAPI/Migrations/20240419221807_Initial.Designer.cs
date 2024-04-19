@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoatCoachAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240418225113_UpdateCalendarTable")]
-    partial class UpdateCalendarTable
+    [Migration("20240419221807_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace GoatCoachAPI.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Calendar", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Calendar", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,7 +55,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Calendars");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.ClinicalReport", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.ClinicalReport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("ClinicalReports");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Match", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Match", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -111,7 +111,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Matches");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Note", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Note", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -137,7 +137,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Player", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,12 @@ namespace GoatCoachAPI.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("PositionId")
+                    b.Property<string>("Position")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("SportId")
                         .HasColumnType("int");
 
                     b.Property<int>("TeamId")
@@ -161,32 +166,14 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PositionId");
+                    b.HasIndex("SportId");
 
                     b.HasIndex("TeamId");
 
                     b.ToTable("Players");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Position", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Positions");
-                });
-
-            modelBuilder.Entity("GoatCoachAPI.Models.Practice", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,7 +199,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Practices");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Practice_Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice_Player", b =>
                 {
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
@@ -227,7 +214,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Practices_Players");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.PrincipalTeam", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -246,7 +233,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("PrincipalTeams");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.PrincipalTeam_Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam_Player", b =>
                 {
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
@@ -261,7 +248,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("PrincipalTeams_Players");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Punishment", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Punishment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -297,7 +284,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Punishments");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Sport", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Sport", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -315,7 +302,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Sports");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Sport_Team", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Sport_Team", b =>
                 {
                     b.Property<int>("SportId")
                         .HasColumnType("int");
@@ -330,7 +317,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Sports_Teams");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.SubstituteTeam", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -349,7 +336,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("SubstituteTeams");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.SubstituteTeam_Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam_Player", b =>
                 {
                     b.Property<int>("PlayerId")
                         .HasColumnType("int");
@@ -364,7 +351,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("SubstituteTeams_Players");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Team", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Team", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -386,7 +373,7 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.User", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -589,17 +576,17 @@ namespace GoatCoachAPI.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Calendar", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Calendar", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Sport", "Sport")
+                    b.HasOne("GoatCoachAPI.Data.Models.Sport", "Sport")
                         .WithMany("Calendars")
                         .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.Team", "Team")
+                    b.HasOne("GoatCoachAPI.Data.Models.Team", "Team")
                         .WithOne("Calendar")
-                        .HasForeignKey("GoatCoachAPI.Models.Calendar", "TeamId")
+                        .HasForeignKey("GoatCoachAPI.Data.Models.Calendar", "TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -608,20 +595,20 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.ClinicalReport", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.ClinicalReport", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Player", "Player")
+                    b.HasOne("GoatCoachAPI.Data.Models.Player", "Player")
                         .WithOne("ClinicalReport")
-                        .HasForeignKey("GoatCoachAPI.Models.ClinicalReport", "PlayerId")
+                        .HasForeignKey("GoatCoachAPI.Data.Models.ClinicalReport", "PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Match", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Match", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Calendar", "Calendar")
+                    b.HasOne("GoatCoachAPI.Data.Models.Calendar", "Calendar")
                         .WithMany("Matches")
                         .HasForeignKey("CalendarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -630,9 +617,9 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Calendar");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Note", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Note", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Player", "Player")
+                    b.HasOne("GoatCoachAPI.Data.Models.Player", "Player")
                         .WithMany("Notes")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -641,28 +628,28 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Player", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Position", "Position")
+                    b.HasOne("GoatCoachAPI.Data.Models.Sport", "Sport")
                         .WithMany("Players")
-                        .HasForeignKey("PositionId")
+                        .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.Team", "Team")
+                    b.HasOne("GoatCoachAPI.Data.Models.Team", "Team")
                         .WithMany("Players")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Position");
+                    b.Navigation("Sport");
 
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Practice", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Calendar", "Calendar")
+                    b.HasOne("GoatCoachAPI.Data.Models.Calendar", "Calendar")
                         .WithMany("Practices")
                         .HasForeignKey("CalendarId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -671,15 +658,15 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Calendar");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Practice_Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice_Player", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Player", "Player")
+                    b.HasOne("GoatCoachAPI.Data.Models.Player", "Player")
                         .WithMany("PracticesPlayers")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.Practice", "Practice")
+                    b.HasOne("GoatCoachAPI.Data.Models.Practice", "Practice")
                         .WithMany("PracticesPlayers")
                         .HasForeignKey("PracticeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -690,26 +677,26 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Practice");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.PrincipalTeam", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Match", "Match")
+                    b.HasOne("GoatCoachAPI.Data.Models.Match", "Match")
                         .WithOne("PrincipalTeam")
-                        .HasForeignKey("GoatCoachAPI.Models.PrincipalTeam", "MatchId")
+                        .HasForeignKey("GoatCoachAPI.Data.Models.PrincipalTeam", "MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Match");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.PrincipalTeam_Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam_Player", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Player", "Player")
+                    b.HasOne("GoatCoachAPI.Data.Models.Player", "Player")
                         .WithMany("PrincipalTeamPlayers")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.PrincipalTeam", "PrincipalTeam")
+                    b.HasOne("GoatCoachAPI.Data.Models.PrincipalTeam", "PrincipalTeam")
                         .WithMany("PrincipalTeamPlayers")
                         .HasForeignKey("PrincipalTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -720,15 +707,15 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("PrincipalTeam");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Punishment", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Punishment", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Match", "Match")
+                    b.HasOne("GoatCoachAPI.Data.Models.Match", "Match")
                         .WithMany("Punishments")
                         .HasForeignKey("MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.Player", "Player")
+                    b.HasOne("GoatCoachAPI.Data.Models.Player", "Player")
                         .WithMany("Punishments")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -739,15 +726,15 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Sport_Team", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Sport_Team", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Sport", "Sport")
+                    b.HasOne("GoatCoachAPI.Data.Models.Sport", "Sport")
                         .WithMany("SportsTeams")
                         .HasForeignKey("SportId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.Team", "Team")
+                    b.HasOne("GoatCoachAPI.Data.Models.Team", "Team")
                         .WithMany("SportsTeams")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -758,26 +745,26 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.SubstituteTeam", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Match", "Match")
+                    b.HasOne("GoatCoachAPI.Data.Models.Match", "Match")
                         .WithOne("SubstituteTeam")
-                        .HasForeignKey("GoatCoachAPI.Models.SubstituteTeam", "MatchId")
+                        .HasForeignKey("GoatCoachAPI.Data.Models.SubstituteTeam", "MatchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Match");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.SubstituteTeam_Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam_Player", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.Player", "Player")
+                    b.HasOne("GoatCoachAPI.Data.Models.Player", "Player")
                         .WithMany("SubstituteTeamPlayers")
                         .HasForeignKey("PlayerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.SubstituteTeam", "SubstituteTeam")
+                    b.HasOne("GoatCoachAPI.Data.Models.SubstituteTeam", "SubstituteTeam")
                         .WithMany("SubstituteTeamPlayers")
                         .HasForeignKey("SubstituteTeamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -799,7 +786,7 @@ namespace GoatCoachAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.User", null)
+                    b.HasOne("GoatCoachAPI.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -808,7 +795,7 @@ namespace GoatCoachAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.User", null)
+                    b.HasOne("GoatCoachAPI.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -823,7 +810,7 @@ namespace GoatCoachAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GoatCoachAPI.Models.User", null)
+                    b.HasOne("GoatCoachAPI.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -832,21 +819,21 @@ namespace GoatCoachAPI.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("GoatCoachAPI.Models.User", null)
+                    b.HasOne("GoatCoachAPI.Data.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Calendar", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Calendar", b =>
                 {
                     b.Navigation("Matches");
 
                     b.Navigation("Practices");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Match", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Match", b =>
                 {
                     b.Navigation("PrincipalTeam")
                         .IsRequired();
@@ -857,7 +844,7 @@ namespace GoatCoachAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Player", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Player", b =>
                 {
                     b.Navigation("ClinicalReport");
 
@@ -872,34 +859,31 @@ namespace GoatCoachAPI.Migrations
                     b.Navigation("SubstituteTeamPlayers");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Position", b =>
-                {
-                    b.Navigation("Players");
-                });
-
-            modelBuilder.Entity("GoatCoachAPI.Models.Practice", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice", b =>
                 {
                     b.Navigation("PracticesPlayers");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.PrincipalTeam", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam", b =>
                 {
                     b.Navigation("PrincipalTeamPlayers");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Sport", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Sport", b =>
                 {
                     b.Navigation("Calendars");
+
+                    b.Navigation("Players");
 
                     b.Navigation("SportsTeams");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.SubstituteTeam", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam", b =>
                 {
                     b.Navigation("SubstituteTeamPlayers");
                 });
 
-            modelBuilder.Entity("GoatCoachAPI.Models.Team", b =>
+            modelBuilder.Entity("GoatCoachAPI.Data.Models.Team", b =>
                 {
                     b.Navigation("Calendar");
 

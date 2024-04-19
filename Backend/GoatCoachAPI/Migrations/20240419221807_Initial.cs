@@ -52,19 +52,6 @@ namespace GoatCoachAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Positions",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Positions", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Sports",
                 columns: table => new
                 {
@@ -203,6 +190,8 @@ namespace GoatCoachAPI.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    SeasonStart = table.Column<DateOnly>(type: "date", nullable: false),
+                    SeasonEnd = table.Column<DateOnly>(type: "date", nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: false),
                     SportId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -231,16 +220,17 @@ namespace GoatCoachAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Attributes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Position = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     TeamId = table.Column<int>(type: "int", nullable: false),
-                    PositionId = table.Column<int>(type: "int", nullable: false)
+                    SportId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Players", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Players_Positions_PositionId",
-                        column: x => x.PositionId,
-                        principalTable: "Positions",
+                        name: "FK_Players_Sports_SportId",
+                        column: x => x.SportId,
+                        principalTable: "Sports",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -566,9 +556,9 @@ namespace GoatCoachAPI.Migrations
                 column: "PlayerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Players_PositionId",
+                name: "IX_Players_SportId",
                 table: "Players",
-                column: "PositionId");
+                column: "SportId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Players_TeamId",
@@ -679,9 +669,6 @@ namespace GoatCoachAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "SubstituteTeams");
-
-            migrationBuilder.DropTable(
-                name: "Positions");
 
             migrationBuilder.DropTable(
                 name: "Matches");

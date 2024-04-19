@@ -1,7 +1,8 @@
 using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Data;
-using GoatCoachAPI.Models;
+using GoatCoachAPI.Data.Models;
 using GoatCoachAPI.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
@@ -28,7 +29,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddIdentityApiEndpoints<User>()
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 	.AddEntityFrameworkStores<DataContext>();
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -43,7 +44,7 @@ if (app.Environment.IsDevelopment())
 	app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<User>();
+app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 
