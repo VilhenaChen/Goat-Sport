@@ -6,11 +6,14 @@ import { PersistGate } from "redux-persist/integration/react";
 import App from "./App.tsx";
 import "./index.css";
 import store from "./store";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./ui/theme";
 
 const persistor = persistStore(store);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <Provider store={store}>
       {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,5 +23,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </PersistGate>
       }
     </Provider>
+    </ThemeProvider>
   </React.StrictMode>
 );
