@@ -1,19 +1,14 @@
-import { memo } from "react";
-import { RegisterPagePresentation } from "./RegisterPagePresentation";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userActions } from "../../store/userSlice";
+import { RegisterPagePresentation } from "./RegisterPagePresentation";
 
 export const RegisterPageContainer = memo(() => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  
-  
-  const handleRegister = () => {
+
+  const handleRegister = useCallback(() => {
     //TODO
-    dispatch(userActions.loginUser({name:"TEST", teamName:"TEST", token:"TEST"} ));
-    navigate("/choose-sport");
-  };
+    navigate("/");
+  }, [navigate]);
 
   return <RegisterPagePresentation handleRegister={handleRegister} />;
 });
