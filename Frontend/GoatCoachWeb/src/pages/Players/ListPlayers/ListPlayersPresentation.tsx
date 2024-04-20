@@ -15,7 +15,7 @@ import { BottomMenu } from "../../../components/BottomMenu";
 import { CoachIcon } from "../../../components/CoachIcon";
 import { HeaderContainer } from "../../../components/Header";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
-import PlayerAvatar from "../../../assets/playerAvatar.png";
+import PlayerAvatar from "../../../assets/playerAvatar.svg";
 
 const PageContainer = styled("div")({
   height: "100%",
