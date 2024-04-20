@@ -17,6 +17,7 @@ const BottomNavigationContainer = styled("div")({
   left: 0,
   backgroundColor: "#D6E0E8",
   borderRadius: "16px 16px 0 0",
+  zIndex: 2,
 });
 
 interface TabProps {

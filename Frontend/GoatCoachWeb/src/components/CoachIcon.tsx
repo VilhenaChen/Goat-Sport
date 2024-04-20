@@ -8,6 +8,7 @@ const StyledIcon = styled("img")({
   top: 10,
   right: 10,
   width: "58px",
+  zIndex: 2,
 });
 
 export const CoachIcon = memo(() => {

@@ -9,10 +9,9 @@ import TabsComponent from "../../components/TabsComponent";
 const PageContainer = styled("div")({
   height: "100%",
   position: "relative",
-  paddingBottom: "80px",
   overflowY: "hidden",
   marginTop: "90px",
-  padding: "16px 36px",
+  padding: "16px 36px 88px 36px",
 });
 
 const StyledProfileIcon = styled("img")({
@@ -69,7 +68,7 @@ export const UserProfilePresentation = memo(
   }: UserProfilePresentationProps) => {
     return (
       <PageContainer>
-        <HeaderContainer title="Manager Details" />
+        <HeaderContainer title="Manager Details" backgroundColor="#FFFFFF" />
         <ContentContainer>
           <StyledProfileIcon src={ProfileIcon} alt="Profile" />
           <TabsComponent

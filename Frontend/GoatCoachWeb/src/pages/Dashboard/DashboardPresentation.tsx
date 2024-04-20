@@ -10,7 +10,7 @@ const PageContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
   gap: "36px",
-  paddingBottom: "80px",
+  paddingBottom: "88px",
   position: "relative",
   overflowY: "hidden",
 });
@@ -51,7 +51,7 @@ const SectionTitle = styled(Typography)({
 });
 
 const SquadDataContainer = styled("div")({
-  marginTop: "32px",
+  marginTop: "16px",
   display: "flex",
   flexDirection: "row",
   alignItems: "stretch",
