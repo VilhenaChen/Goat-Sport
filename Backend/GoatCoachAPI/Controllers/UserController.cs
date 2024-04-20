@@ -1,8 +1,10 @@
 ﻿using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Data.Models;
 using GoatCoachAPI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace GoatCoachAPI.Controllers
 {
@@ -76,5 +78,35 @@ namespace GoatCoachAPI.Controllers
 
 			return BadRequest();
 		}
+
+		// GET: User/GetUserTeamSport/example@gmail.com
+		[Authorize]
+		[HttpGet]
+		public async Task<ActionResult<GetUserTeamSportVM>> GetUserTeamSport([FromBody]string email)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+
+			if (user == null)
+				return BadRequest("Email don't exist!");
+
+			var team = await teamRepository.GetByUserIdAsync(user.Id);
+
+			var sportTeam = await sportTeamRepository.GetSportTeamByTeamId(team.Id);
+
+			List<int> sports = new List<int>();
+			foreach(var sport in sportTeam)
+			{
+				sports.Add(sport.SportId);
+			}
+
+			var result = new GetUserTeamSportVM
+			{
+				TeamId = team.Id,
+				Sports = sports
+			};
+
+			return Ok(result);
+		}
+
 	}
 }
