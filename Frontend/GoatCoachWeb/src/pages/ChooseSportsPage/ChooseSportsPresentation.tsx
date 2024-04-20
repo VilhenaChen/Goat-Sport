@@ -4,6 +4,7 @@ import { TranslucidContainer } from "../../components/TranslucidContainer";
 
 import BackgroundImage from "../../assets/loginBackground.jpg";
 import { BackgroundContainer } from "../../components/BackgroundContainer";
+import { HeaderContainer } from "../../components/Header";
 
 interface ChooseSportPresentationProps {
   handleSportSelection: () => void;
@@ -12,6 +13,8 @@ interface ChooseSportPresentationProps {
 export const ChooseSportPresentation = memo(({handleSportSelection} : ChooseSportPresentationProps) => {
   return (
     <BackgroundContainer BackgroundImage={BackgroundImage}>
+      <HeaderContainer></HeaderContainer>
+
       <TranslucidContainer>
         <Typography className="title">Choose Sport</Typography>
         <Typography>
