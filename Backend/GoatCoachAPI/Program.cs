@@ -23,6 +23,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISportRepository, SportRepository>();
 builder.Services.AddScoped<ISportTeamRepository, SportTeamRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 
 var app = builder.Build();
 
