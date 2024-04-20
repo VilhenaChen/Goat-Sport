@@ -47,7 +47,6 @@ const ActionButton = styled(Button)({
 
 interface UserProfilePresentationProps {
   name: string;
-  age: number;
   email: string;
   teamName: string;
   sports: string[];
@@ -60,7 +59,6 @@ interface UserProfilePresentationProps {
 export const UserProfilePresentation = memo(
   ({
     name,
-    age,
     email,
     teamName,
     sports,
@@ -84,10 +82,6 @@ export const UserProfilePresentation = memo(
               <div>
                 <Typography className="label">Name:</Typography>
                 <Typography className="value">{name}</Typography>
-              </div>
-              <div>
-                <Typography className="label">Age:</Typography>
-                <Typography className="value">{age}</Typography>
               </div>
               <div>
                 <Typography className="label">Email:</Typography>

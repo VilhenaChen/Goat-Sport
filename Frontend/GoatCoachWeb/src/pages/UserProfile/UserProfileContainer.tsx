@@ -26,7 +26,6 @@ const UserProfileContainer = memo(() => {
   return (
     <UserProfilePresentation
       name="Rogério Shaimite"
-      age={18}
       email="test@gmail.com"
       teamName="test"
       sports={["Football", "Soccer"]}
