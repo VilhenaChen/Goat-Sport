@@ -19,7 +19,7 @@ export const HomePage = memo(() => {
   },[]);
   
   const registerClick = useCallback(()=>{
-    navigate("/login");
+    navigate("/register");
   },[]);
 
   return (
