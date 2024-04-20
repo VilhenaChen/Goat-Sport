@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { TabEnum } from "../utils/utils";
 
 interface UserState {
   token: string | null;
@@ -6,6 +7,7 @@ interface UserState {
   teamName: string | null;
   chosenSport: string | null;
   loggedIn: boolean;
+  tabChosen: TabEnum;
 }
 
 const initialUserState: UserState = {
@@ -14,6 +16,7 @@ const initialUserState: UserState = {
   teamName: null,
   chosenSport: null,
   loggedIn: false,
+  tabChosen: TabEnum.DASHBOARD,
 };
 
 const userSlice = createSlice({
@@ -43,6 +46,15 @@ const userSlice = createSlice({
       }
     ) => {
       state.chosenSport = action.payload.chosenSport;
+    },
+    changeTab: (
+      state,
+      action: {
+        payload: { tab: TabEnum };
+        type: string;
+      }
+    ) => {
+      state.tabChosen = action.payload.tab;
     },
   },
 });
