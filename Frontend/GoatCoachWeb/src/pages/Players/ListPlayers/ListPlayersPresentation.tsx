@@ -16,6 +16,14 @@ import { CoachIcon } from "../../../components/CoachIcon";
 import { HeaderContainer } from "../../../components/Header";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import PlayerAvatar from "../../../assets/playerAvatar.svg";
+import NoPlayers from "../../../assets/NoPlayers.svg";
+
+interface Player {
+  id: number;
+  name: string;
+  age: number;
+  position: string;
+}
 
 const PageContainer = styled("div")({
   height: "100%",
@@ -33,32 +41,46 @@ const ListText = styled(ListItemText)({
 
 const ListPlayers = styled(List)({
   maxHeight: "calc(100vh - 300px)",
-  overflow:"scroll",
+  overflow: "scroll",
   marginBottom: "16px",
   marginTop: "16px",
 });
 
 const Item = styled(ListItem)({
   gap: "16px",
+  color: "#33658A",
 });
 
 const FlexContainer = styled("div")({
   display: "flex",
   justifyContent: "space-between",
 });
+
+const ImageContainer = styled("div")({
+  height: "calc(100vh - 300px)",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "stretch",
+  justifyContent: "center",
+});
+
 const CreateButton = styled(Button)({
   position: "absolute",
   bottom: "32px",
   transform: "translateX(-50%)",
+  left: "auto",
+  right: "auto",
   width: "max-content",
 });
 
 interface ListPlayersPresentationProps {
-  handlePlayerCreation: ()=>void,
+  handlePlayerCreation: () => void;
+  onClickPlayer: (id:number) => void;
+  playersList: Player[];
 }
 
 export const ListPlayersPresentation = memo(
-  ({handlePlayerCreation}: ListPlayersPresentationProps) => {
+  ({ handlePlayerCreation, playersList, onClickPlayer }: ListPlayersPresentationProps) => {
     return (
       <PageContainer>
         <HeaderContainer title="Team Name" />
@@ -76,25 +98,40 @@ export const ListPlayersPresentation = memo(
           }}
           variant="standard"
         />
-        <ListPlayers>
-          <Item>
-            <ListItemAvatar>
-              <img src={PlayerAvatar} alt="Player Avatar"></img>
-            </ListItemAvatar>
-            <ListText
-              primary="Player Name"
-              secondary={
-                <>
-                  <FlexContainer>
-                    <Typography>Age</Typography>
-                    <Typography>Position</Typography>
-                  </FlexContainer>
-                </>
-              }
-            />
-          </Item>
-        </ListPlayers>
-        <CreateButton variant="contained" onClick={handlePlayerCreation}>Create Player</CreateButton>
+
+        {playersList.length > 0 ? (
+          <ListPlayers>
+            {playersList.map((player) => (
+              <Item onClick={()=>onClickPlayer(player.id)}>
+                <ListItemAvatar>
+                  <img src={PlayerAvatar} alt="Player Avatar"></img>
+                </ListItemAvatar>
+                <ListText
+                  primary={player.name}
+                  secondary={
+                    <>
+                      <FlexContainer>
+                        <Typography>{player.age}</Typography>
+                        <Typography>{player.position}</Typography>
+                      </FlexContainer>
+                    </>
+                  }
+                />
+              </Item>
+            ))}
+          </ListPlayers>
+        ) : (
+          <ImageContainer>
+            <img src={NoPlayers} alt="No players Graphism"></img>
+            <Typography>
+              You dont have any players on your team, start by adding them
+            </Typography>
+          </ImageContainer>
+        )}
+
+        <CreateButton variant="contained" onClick={handlePlayerCreation}>
+          Create Player
+        </CreateButton>
         <BottomMenu />
       </PageContainer>
     );

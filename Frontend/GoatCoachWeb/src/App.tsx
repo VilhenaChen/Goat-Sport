@@ -47,6 +47,8 @@ function App() {
         />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/players" element={<ListPlayersContainer />} />
+        <Route path="/player/:id" element={<ListPlayersContainer />} /> //TODO
+        <Route path="/player/create" element={<ListPlayersContainer />} /> //TODO
       </Routes>
     </Router>
   );
