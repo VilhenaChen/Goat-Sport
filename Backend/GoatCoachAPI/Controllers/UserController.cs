@@ -2,8 +2,10 @@
 using GoatCoachAPI.Data.Models;
 using GoatCoachAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using System.Text.Json;
 
 namespace GoatCoachAPI.Controllers
@@ -31,7 +33,7 @@ namespace GoatCoachAPI.Controllers
 			var userDb = await userManager.FindByEmailAsync(model.Email);
 			if (userDb != null)
 			{
-				return BadRequest("Email already exists!");
+				return Conflict("Email already exists!");
 			}
 
 			foreach (var sportId in model.Sports)
@@ -79,7 +81,7 @@ namespace GoatCoachAPI.Controllers
 			return BadRequest();
 		}
 
-		// GET: User/GetUserTeamSport/example@gmail.com
+		// GET: User/GetUserTeamSport/{email}
 		[Authorize]
 		[HttpGet]
 		public async Task<ActionResult<GetUserTeamSportVM>> GetUserTeamSport([FromBody]string email)
@@ -87,7 +89,7 @@ namespace GoatCoachAPI.Controllers
 			var user = await userManager.FindByEmailAsync(email);
 
 			if (user == null)
-				return BadRequest("Email don't exist!");
+				return NotFound();
 
 			var team = await teamRepository.GetByUserIdAsync(user.Id);
 
@@ -107,6 +109,26 @@ namespace GoatCoachAPI.Controllers
 
 			return Ok(result);
 		}
+
+        // GET: User/GetUserDetails/{id}
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<GetUserDetailsVM>> GetUserDetails(string email)
+		{
+			var user = await userManager.FindByEmailAsync(email);
+
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			return new GetUserDetailsVM
+			{
+				Name = user.FullName,
+				Email = user.Email
+			};
+
+        }
 
 	}
 }
