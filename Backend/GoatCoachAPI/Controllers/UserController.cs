@@ -1,4 +1,5 @@
-﻿using GoatCoachAPI.ViewModels;
+﻿using GoatCoachAPI.Data.Models;
+using GoatCoachAPI.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,9 +9,9 @@ namespace GoatCoachAPI.Controllers
 	[ApiController]
 	public class UserController : ControllerBase
 	{
-		private readonly UserManager<IdentityUser> userManager;
+		private readonly UserManager<User> userManager;
 
-		public UserController(UserManager<IdentityUser> _userManager)
+		public UserController(UserManager<User> _userManager)
 		{
 			userManager = _userManager;
 		}
@@ -18,11 +19,18 @@ namespace GoatCoachAPI.Controllers
 		[HttpPost]
 		public async Task<ActionResult> Register(RegisterVM model)
 		{
+			var userDb = await userManager.FindByEmailAsync(model.Email);
+			if(userDb != null)
+			{
+				return BadRequest("Email already exists!");
+			}
+
 			if (ModelState.IsValid)
 			{
-				var user = new IdentityUser
+				var user = new User
 				{
-					UserName = model.Username,
+					FullName = model.FullName,
+					UserName = model.Email,
 					Email = model.Email,
 					PasswordHash = model.Password,
 				};

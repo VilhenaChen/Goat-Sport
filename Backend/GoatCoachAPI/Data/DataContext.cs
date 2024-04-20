@@ -1,11 +1,10 @@
 ﻿using GoatCoachAPI.Data.Models;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoatCoachAPI.Data
 {
-    public class DataContext : IdentityDbContext<IdentityUser>
+	public class DataContext : IdentityDbContext<User>
 	{
 		public DataContext(DbContextOptions<DataContext> options) : base(options)
 		{
