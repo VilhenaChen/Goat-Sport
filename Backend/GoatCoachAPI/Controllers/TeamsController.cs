@@ -1,5 +1,6 @@
 ﻿using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Data.Models;
+using GoatCoachAPI.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,19 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace GoatCoachAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]/[action]")]
 	[ApiController]
 	public class TeamsController : ControllerBase
 	{
 		private readonly ITeamRepository teamRepository;
-		private readonly UserManager<User> userManager;
+        private readonly ISportTeamRepository sportTeamRepository;
 
-		public TeamsController(ITeamRepository _teamRepository, UserManager<User> _userManager)
+        public TeamsController(ITeamRepository _teamRepository, ISportTeamRepository _sportTeamRepository)
 		{
 			teamRepository = _teamRepository;
-			userManager = _userManager;
-		}
+			sportTeamRepository = _sportTeamRepository;
+
+        }
 
 		// GET: /Teams
 		[HttpGet]
@@ -98,19 +100,28 @@ namespace GoatCoachAPI.Controllers
 			return Ok();
 		}
 
-		// GET: /Team/getPlayersFromTeam?teamid={teamId}&sportId={sportId}
-		[HttpGet("{teamId}/{sportId})")]
+        // GET: /Teams/GetPlayersFromTeam?teamid={teamId}&sportId={sportId}
+        [HttpGet("{teamId}/{sportId}")]
 		public async Task<ActionResult<IEnumerable<Player>>> GetPlayersFromTeam(int teamId, int sportId)
 		{
 			var team = await teamRepository.GetByIdAsync(teamId);
+			team.SportsTeams = await sportTeamRepository.GetSportTeamByTeamId(teamId);
 
-			if (team == null || team.SportsTeams == null || team.SportsTeams.Any(st => st.SportId == sportId))
+
+            if (team == null || team.SportsTeams == null)
 			{
 				return BadRequest();
 			}
 
-			// Filter for the players from that team that play that Sport
-            return team.Players.Where(player => player.SportId == sportId).ToList();
+			if (team.SportsTeams.Any(st => st.SportId == sportId))
+			{
+				return NoContent();
+			}
+			else
+			{
+				// Filter for the players from that team that play that Sport
+				return Ok(team.Players.Where(player => player.SportId == sportId).ToList());
+			}
 		}
 	}
 }
