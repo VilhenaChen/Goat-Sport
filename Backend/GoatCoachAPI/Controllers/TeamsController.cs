@@ -1,31 +1,34 @@
 ﻿using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Data.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoatCoachAPI.Controllers
 {
     [Authorize]
-	[Route("api/[controller]/[action]")]
+    [Route("[controller]/[action]")]
 	[ApiController]
 	public class TeamsController : ControllerBase
 	{
 		private readonly ITeamRepository teamRepository;
+		private readonly UserManager<User> userManager;
 
-		public TeamsController(ITeamRepository _teamRepository)
+		public TeamsController(ITeamRepository _teamRepository, UserManager<User> _userManager)
 		{
 			teamRepository = _teamRepository;
+			userManager = _userManager;
 		}
 
-		// GET: api/Teams
+		// GET: /Teams
 		[HttpGet]
 		public async Task<ActionResult<List<Team>>> GetTeams()
 		{
 			return Ok(await teamRepository.GetAllAsync());
 		}
 
-		// GET: api/Teams/5
+		// GET: /Teams/5
 		[HttpGet("{id}")]
 		public async Task<ActionResult<Team>> GetTeam(int id)
 		{
@@ -37,7 +40,7 @@ namespace GoatCoachAPI.Controllers
 
 		}
 
-		// PUT: api/Teams/5
+		// PUT: /Teams/5
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateTeam(int id, Team team)
@@ -73,7 +76,7 @@ namespace GoatCoachAPI.Controllers
 			return Ok();
 		}
 
-		// POST: api/Teams
+		// POST: /Teams
 		// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
 		[HttpPost]
 		public async Task<ActionResult<Team>> CreateTeam(Team team)
@@ -86,13 +89,28 @@ namespace GoatCoachAPI.Controllers
 			return BadRequest();
 		}
 
-		// DELETE: api/Teams/5
+		// DELETE: /Teams/5
 		[HttpDelete("{id}")]
 		public async Task<IActionResult> DeleteTeam(int id)
 		{
 			await teamRepository.DeleteAsync(id);
 
 			return Ok();
+		}
+
+		// GET: /Team/getPlayersFromTeam?teamid={teamId}&sportId={sportId}
+		[HttpGet("{teamId}/{sportId})")]
+		public async Task<ActionResult<IEnumerable<Player>>> GetPlayersFromTeam(int teamId, int sportId)
+		{
+			var team = await teamRepository.GetByIdAsync(teamId);
+
+			if (team == null || team.SportsTeams == null || team.SportsTeams.Any(st => st.SportId == sportId))
+			{
+				return BadRequest();
+			}
+
+			// Filter for the players from that team that play that Sport
+            return team.Players.Where(player => player.SportId == sportId).ToList();
 		}
 	}
 }
