@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using GoatCoachAPI.Data;
 using GoatCoachAPI.Data.Models;
-using GoatCoachAPI.Data.DTO;
 using Microsoft.AspNetCore.Authorization;
+using GoatCoachAPI.ViewModels;
 
 namespace GoatCoachAPI.Controllers
 {
@@ -26,10 +26,10 @@ namespace GoatCoachAPI.Controllers
 
         // GET: /Sports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SportDto>>> GetSports()
+        public async Task<ActionResult<IEnumerable<SportVM>>> GetSports()
         {
             return await _context.Sports
-             .Select(s => new SportDto
+             .Select(s => new SportVM
              {
                  Id = s.Id,
                  Name = s.Name

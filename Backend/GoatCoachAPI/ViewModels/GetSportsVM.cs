@@ -1,6 +1,6 @@
-﻿namespace GoatCoachAPI.Data.DTO
+﻿namespace GoatCoachAPI.ViewModels
 {
-    public class SportDto
+    public class GetSportsVM
     {
         public int Id { get; set; }
         public string Name { get; set; }
