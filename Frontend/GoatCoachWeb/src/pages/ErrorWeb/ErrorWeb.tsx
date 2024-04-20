@@ -2,6 +2,7 @@ import { Typography, styled } from "@mui/material";
 import { memo } from "react";
 
 import BackgroundImage from "../../assets/homePageBackground.png";
+import { BackgroundContainer } from "../../components/BackgroundContainer";
 
 const ErrorTitle = styled(Typography)({
   color: "#33658A",
@@ -15,16 +16,6 @@ const ErrorDescription = styled(Typography)({
   fontSize: "24px",
   width: "60%",
   fontWeight: 600,
-});
-
-const BackgroundContainer = styled("div")({
-  flex: 1,
-  backgroundImage: `url(${BackgroundImage})`,
-  backgroundSize: "cover",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
 });
 
 const ErrorContainer = styled("div")({
@@ -41,7 +32,7 @@ const ErrorContainer = styled("div")({
 
 export const ErrorWeb = memo(() => {
   return (
-    <BackgroundContainer>
+    <BackgroundContainer BackgroundImage={BackgroundImage}>
       <ErrorContainer>
         <ErrorTitle>Em Breve</ErrorTitle>
         <ErrorDescription>

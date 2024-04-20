@@ -1,8 +1,12 @@
 import { memo } from "react";
+import { useVerifyMobileView } from "../../hooks/useVerifyMobileView";
+import { useVerifyUserLogin } from "../../hooks/useVerifyUserLogin";
 import { EventType, GameLocationEnum } from "../../utils/utils";
 import { DashboardPresentation } from "./DashboardPresentation";
 
 export const DashboardContainer = memo(() => {
+  useVerifyMobileView();
+  useVerifyUserLogin();
   return (
     <DashboardPresentation
       coachName="Roger Shmaite"

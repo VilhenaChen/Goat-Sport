@@ -4,20 +4,12 @@ import { TranslucidContainer } from "../../components/TranslucidContainer";
 
 import BackgroundImage from "../../assets/loginBackground.jpg";
 import { Link } from "react-router-dom";
+import { BackgroundContainer } from "../../components/BackgroundContainer";
+
 
 export const LoginPagePresentation = memo(() => {
-  const BackgroundContainer = styled("div")({
-    flex: 1,
-    backgroundImage: `url(${BackgroundImage})`,
-    backgroundSize: "cover",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  });
-
   return (
-    <BackgroundContainer>
+    <BackgroundContainer BackgroundImage={BackgroundImage}>
       <TranslucidContainer>
         <Typography className="title">Login</Typography>
         <TextField id="standard-basic" label="Email" variant="standard" />
