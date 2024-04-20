@@ -21,6 +21,8 @@ builder.Services.AddIdentityApiEndpoints<User>()
 
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<ITeamRepository, TeamRepository>();
+builder.Services.AddScoped<ISportRepository, SportRepository>();
+builder.Services.AddScoped<ISportTeamRepository, SportTeamRepository>();
 
 var app = builder.Build();
 

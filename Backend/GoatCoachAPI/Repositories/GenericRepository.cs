@@ -43,7 +43,7 @@ namespace GoatCoachAPI.Repositories
         {
             if (id == null)
                 return null;
-            return await context.Set<T>().FindAsync();
+            return await context.Set<T>().FindAsync(id);
         }
 
         public async Task UpdateAsync(T entity)
