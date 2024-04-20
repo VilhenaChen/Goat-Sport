@@ -1,7 +1,7 @@
 import { Typography, styled } from "@mui/material";
 import { memo } from "react";
 
-import BackgroundImage from "../assets/homePageBackground.png";
+import BackgroundImage from "../../assets/homePageBackground.png";
 
 const ErrorTitle = styled(Typography)({
   color: "#33658A",
