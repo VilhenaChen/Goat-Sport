@@ -32,9 +32,10 @@ const ListText = styled(ListItemText)({
 });
 
 const ListPlayers = styled(List)({
-  maxHeight: "calc(100vh - 260px)",
+  maxHeight: "calc(100vh - 300px)",
   overflow:"scroll",
-  marginBottom: "16px"
+  marginBottom: "16px",
+  marginTop: "16px",
 });
 
 const Item = styled(ListItem)({
@@ -44,6 +45,12 @@ const Item = styled(ListItem)({
 const FlexContainer = styled("div")({
   display: "flex",
   justifyContent: "space-between",
+});
+const CreateButton = styled(Button)({
+  position: "absolute",
+  bottom: "32px",
+  transform: "translateX(-50%)",
+  width: "max-content",
 });
 
 interface ListPlayersPresentationProps {
@@ -87,7 +94,7 @@ export const ListPlayersPresentation = memo(
             />
           </Item>
         </ListPlayers>
-        <Button variant="contained" onClick={handlePlayerCreation}>Create Player</Button>
+        <CreateButton variant="contained" onClick={handlePlayerCreation}>Create Player</CreateButton>
         <BottomMenu />
       </PageContainer>
     );
