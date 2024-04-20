@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Repositories;
 using GoatCoachAPI.ViewModels;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GoatCoachAPI.Controllers
 {
@@ -21,13 +22,13 @@ namespace GoatCoachAPI.Controllers
     {
         private readonly DataContext _context;
         private readonly IPlayerRepository playerRepository;
-        private readonly ISportRepository sportRepository;
+        private readonly ISportTeamRepository sportTeamRepository;
 
-        public PlayersController(DataContext context, IPlayerRepository _playerRepository, ISportRepository _sportRepository)
+        public PlayersController(DataContext context, IPlayerRepository _playerRepository, ISportTeamRepository _sportTeamRepository)
         {
             _context = context;
             playerRepository = _playerRepository;
-            sportRepository = _sportRepository;
+            sportTeamRepository = _sportTeamRepository;
         }
 
         // GET: /Players
@@ -90,9 +91,10 @@ namespace GoatCoachAPI.Controllers
             if (ModelState.IsValid)
             {
 
-                if (!await sportRepository.Exists(playerModel.sportId))
+                var sportTeamResult = await sportTeamRepository.GetSportTeamByTeamId(playerModel.teamId);
+                if (sportTeamResult.IsNullOrEmpty() || !sportTeamResult.Exists(st => st.SportId == playerModel.sportId))
                 {
-                    return BadRequest("Team with id:" + playerModel.sportId + " does not exist");
+                    return BadRequest("This team or this team/sport combination does not exist");
                 }
 
                 var player = new Player
