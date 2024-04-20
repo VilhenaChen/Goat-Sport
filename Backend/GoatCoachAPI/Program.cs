@@ -1,6 +1,7 @@
+using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Data;
-using GoatCoachAPI.Models;
-using Microsoft.AspNetCore.Identity;
+using GoatCoachAPI.Data.Models;
+using GoatCoachAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<DataContext>(options =>
 });
 builder.Services.AddIdentityApiEndpoints<User>()
 	.AddEntityFrameworkStores<DataContext>();
+
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 
 var app = builder.Build();
 
