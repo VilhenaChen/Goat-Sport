@@ -1,27 +1,25 @@
 ﻿using GoatCoachAPI.Contracts;
 using GoatCoachAPI.Data.Models;
-using GoatCoachAPI.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace GoatCoachAPI.Controllers
 {
-    //[Authorize]
-    [Route("[controller]/[action]")]
+	[Authorize]
+	[Route("[controller]/[action]")]
 	[ApiController]
 	public class TeamsController : ControllerBase
 	{
 		private readonly ITeamRepository teamRepository;
-        private readonly ISportTeamRepository sportTeamRepository;
+		private readonly ISportTeamRepository sportTeamRepository;
 
-        public TeamsController(ITeamRepository _teamRepository, ISportTeamRepository _sportTeamRepository)
+		public TeamsController(ITeamRepository _teamRepository, ISportTeamRepository _sportTeamRepository)
 		{
 			teamRepository = _teamRepository;
 			sportTeamRepository = _sportTeamRepository;
 
-        }
+		}
 
 		// GET: /Teams
 		[HttpGet]
@@ -100,15 +98,15 @@ namespace GoatCoachAPI.Controllers
 			return Ok();
 		}
 
-        // GET: /Teams/GetPlayersFromTeam?teamid={teamId}&sportId={sportId}
-        [HttpGet("{teamId}/{sportId}")]
+		// GET: /Teams/GetPlayersFromTeam?teamid={teamId}&sportId={sportId}
+		[HttpGet("{teamId}/{sportId}")]
 		public async Task<ActionResult<IEnumerable<Player>>> GetPlayersFromTeam(int teamId, int sportId)
 		{
 			var team = await teamRepository.GetByIdAsync(teamId);
 			team.SportsTeams = await sportTeamRepository.GetSportTeamByTeamId(teamId);
 
 
-            if (team == null || team.SportsTeams == null)
+			if (team == null || team.SportsTeams == null)
 			{
 				return BadRequest();
 			}

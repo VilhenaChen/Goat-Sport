@@ -12,6 +12,8 @@ namespace GoatCoachAPI.Data.Models
         [MaxLength(150, ErrorMessage = "Description is too long!")]
         public string Description { get; set; }
 
+        public bool IsCritic { get; set; }
+
         public DateTime EndDate { get; set; }
 
         [Required(ErrorMessage = "Description is required!")]

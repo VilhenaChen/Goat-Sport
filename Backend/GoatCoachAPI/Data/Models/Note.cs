@@ -7,6 +7,10 @@ namespace GoatCoachAPI.Data.Models
     {
         public int Id { get; set; }
 
+        [MinLength(3)]
+        [MaxLength(50)]
+        public string Title { get; set; }
+
         [Required(ErrorMessage = "Description is required!")]
         [MinLength(10, ErrorMessage = "Description is too short!")]
         [MaxLength(200, ErrorMessage = "Description is too long!")]

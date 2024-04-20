@@ -10,7 +10,11 @@ namespace GoatCoachAPI.Data.Models
         [Required(ErrorMessage = "Description is required!")]
         [MinLength(5, ErrorMessage = "Description is too short!")]
         [MaxLength(150, ErrorMessage = "Description is too long!")]
-        public string Description { get; set; }
+        public string Opponent { get; set; }
+
+		[MinLength(2)]
+		[MaxLength(10)]
+		public string FinalResult { get; set; }
 
         public DateTime Date { get; set; }
 
