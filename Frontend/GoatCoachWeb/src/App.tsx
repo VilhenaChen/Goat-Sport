@@ -9,6 +9,7 @@ import { DashboardContainer as Dashboard } from "./pages/Dashboard/DashboardCont
 import { ErrorWeb } from "./pages/ErrorWeb/ErrorWeb";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPagePresentation as Login } from "./pages/LoginPage/LoginPagePresentation";
+import { RegisterPagePresentation as Register } from "./pages/RegisterPage/RegisterPagePresentation";
 import { useAppSelector } from "./store";
 
 function App() {
@@ -26,6 +27,10 @@ function App() {
         <Route
           path="/login"
           element={!isLoggedIn ? <Login /> : <Navigate replace to="/" />}
+        />
+        <Route
+          path="/register"
+          element={!isLoggedIn ? <Register /> : <Navigate replace to="/" />}
         />
       </Routes>
     </Router>
