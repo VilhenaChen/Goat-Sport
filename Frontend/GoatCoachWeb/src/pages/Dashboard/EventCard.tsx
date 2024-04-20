@@ -7,15 +7,15 @@ import { EventType, GameLocationEnum } from "../../utils/utils";
 const Month = styled(Typography)({
   color: "#FFFFFF",
   fontFamily: "Rubik",
-  fontSize: "10px",
-  lineHeight: "12px",
+  fontSize: "14px",
+  lineHeight: "16px",
 });
 const Day = styled(Typography)({
   color: "#FFFFFF",
   fontFamily: "Rubik",
-  fontSize: "12px",
+  fontSize: "16px",
   fontWeight: 700,
-  lineHeight: "14px",
+  lineHeight: "16px",
 });
 
 const EventCardContainer = styled("div")({
@@ -68,13 +68,13 @@ const DateContainer = styled("div")({
   backgroundColor: "#33658A",
   boxShadow: "6px 4px 3.3px 0px rgba(0, 0, 0, 0.25)",
   borderRadius: "12px",
-  width: "40px",
+  width: "48px",
   aspectRatio: 1,
 });
 
 const Title = styled(Typography)({
   fontFamily: "Rubik",
-  fontSize: "24px",
+  fontSize: "28px",
   color: "rgb(74, 74, 74, 0.9)",
   zIndex: 1,
   width: "50%",
@@ -116,7 +116,7 @@ const EventCard = memo(
   ({ day, month, title, gameLocation, eventType }: EventCardProps) => {
     return (
       <EventCardContainer>
-        {eventType === EventType.Game ? (
+        {eventType === EventType.GAME ? (
           <GameBackground />
         ) : (
           <PracticeBackground />
@@ -126,7 +126,7 @@ const EventCard = memo(
           <Day>{day}</Day>
         </DateContainer>
         <Title>{title}</Title>
-        {eventType === EventType.Game ? (
+        {eventType === EventType.GAME ? (
           <SubtitleContainer gameLocation={gameLocation}>
             <Subtitle>{gameLocation}</Subtitle>
           </SubtitleContainer>

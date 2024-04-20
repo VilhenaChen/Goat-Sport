@@ -1,24 +1,23 @@
 import {
   Button,
-  OutlinedInput,
   InputLabel,
+  OutlinedInput,
   Select,
   TextField,
   Typography,
-  styled,
 } from "@mui/material";
+import FormControl from "@mui/material/FormControl";
 import { memo } from "react";
 import { TranslucidContainer } from "../../components/TranslucidContainer";
-import FormControl from "@mui/material/FormControl";
 
-import BackgroundImage from "../../assets/loginBackground.jpg";
-import { Link } from "react-router-dom";
-import { BackgroundContainer } from "../../components/BackgroundContainer";
-import * as React from "react";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
-import { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import { SelectChangeEvent } from "@mui/material/Select";
+import * as React from "react";
+import { Link } from "react-router-dom";
+import BackgroundImage from "../../assets/loginBackground.jpg";
+import { BackgroundContainer } from "../../components/BackgroundContainer";
 
 //--Demo for Selection
 const names = [

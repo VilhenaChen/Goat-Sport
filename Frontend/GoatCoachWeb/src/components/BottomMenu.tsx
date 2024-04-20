@@ -17,6 +17,7 @@ const BottomNavigationContainer = styled("div")({
   left: 0,
   backgroundColor: "#D6E0E8",
   borderRadius: "16px 16px 0 0",
+  zIndex: 2,
 });
 
 interface TabProps {
@@ -36,12 +37,15 @@ const Tab = styled("div")(({ selected }: TabProps) => ({
 
 const CalendarIcon = styled(CalendarMonth)({
   color: "#33658A",
+  fontSize: "32px",
 });
 const DashboardIcon = styled(Home)({
   color: "#33658A",
+  fontSize: "32px",
 });
 const SquadIcon = styled(Groups)({
   color: "#33658A",
+  fontSize: "32px",
 });
 
 const TabText = styled(Typography)({

@@ -10,6 +10,6 @@ export enum GameLocationEnum {
 }
 
 export enum EventType {
-  Game = "Game",
-  Practice = "Practice",
+  GAME = "Game",
+  PRACTICE = "Practice",
 }
