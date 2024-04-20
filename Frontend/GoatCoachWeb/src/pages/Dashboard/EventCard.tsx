@@ -2,18 +2,20 @@ import { Typography, styled } from "@mui/material";
 import { memo } from "react";
 import Gym from "../../assets/gym.png";
 import Stadium from "../../assets/stadium.png";
-import { EventType } from "../../utils/utils";
+import { EventType, GameLocationEnum } from "../../utils/utils";
 
 const Month = styled(Typography)({
-  color: "#33658A",
+  color: "#FFFFFF",
   fontFamily: "Rubik",
-  fontSize: "12px",
+  fontSize: "10px",
+  lineHeight: "12px",
 });
 const Day = styled(Typography)({
-  color: "#33658A",
+  color: "#FFFFFF",
   fontFamily: "Rubik",
   fontSize: "12px",
-  fontWeight: 600,
+  fontWeight: 700,
+  lineHeight: "14px",
 });
 
 const EventCardContainer = styled("div")({
@@ -39,7 +41,7 @@ const GameBackground = styled("div")({
   backgroundPosition: "center",
   position: "absolute",
   borderRadius: "24px",
-  opacity: 0.56,
+  opacity: 0.4,
 });
 
 const PracticeBackground = styled("div")({
@@ -52,7 +54,7 @@ const PracticeBackground = styled("div")({
   backgroundPosition: "center",
   position: "absolute",
   borderRadius: "24px",
-  opacity: 0.56,
+  opacity: 0.4,
 });
 
 const DateContainer = styled("div")({
@@ -63,7 +65,7 @@ const DateContainer = styled("div")({
   flexDirection: "column",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "#D9D9D9",
+  backgroundColor: "#33658A",
   boxShadow: "6px 4px 3.3px 0px rgba(0, 0, 0, 0.25)",
   borderRadius: "12px",
   width: "40px",
@@ -73,15 +75,26 @@ const DateContainer = styled("div")({
 const Title = styled(Typography)({
   fontFamily: "Rubik",
   fontSize: "24px",
-  color: "#4A4A4A",
+  color: "rgb(74, 74, 74, 0.9)",
   zIndex: 1,
   width: "50%",
+  fontWeight: 600,
+  lineHeight: 1.1,
 });
 
 const Subtitle = styled(Typography)({
   fontFamily: "Rubik",
   fontSize: "12px",
-  color: "#4A4A4A",
+  color: "#FFFFFF",
+  fontWeight: 600,
+  zIndex: 1,
+});
+
+const SubtitleContainer = styled("div")({
+  fontFamily: "Rubik",
+  fontSize: "12px",
+  color: "#FFFFFF",
+  fontWeight: 600,
   zIndex: 1,
 });
 
@@ -89,12 +102,12 @@ export interface EventCardProps {
   day: number;
   month: string;
   title: string;
-  subtitle?: string;
+  gameLocation?: GameLocationEnum;
   eventType: EventType;
 }
 
 const EventCard = memo(
-  ({ day, month, title, subtitle, eventType }: EventCardProps) => {
+  ({ day, month, title, gameLocation, eventType }: EventCardProps) => {
     return (
       <EventCardContainer>
         {eventType === EventType.Game ? (
@@ -107,10 +120,10 @@ const EventCard = memo(
           <Day>{day}</Day>
         </DateContainer>
         <Title>{title}</Title>
-        {EventType.Game === EventType.Game ? (
-          <>
-            <Subtitle>{subtitle}</Subtitle>
-          </>
+        {eventType === EventType.Game ? (
+          <SubtitleContainer>
+            <Subtitle>{gameLocation}</Subtitle>
+          </SubtitleContainer>
         ) : null}
       </EventCardContainer>
     );

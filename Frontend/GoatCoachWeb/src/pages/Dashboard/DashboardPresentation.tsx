@@ -17,21 +17,9 @@ const WelcomeMessageText = styled(Typography)({
   fontFamily: "Rubik Mono One",
   fontSize: "20px",
   textAlign: "start",
-  position: "absolute",
-  top: 36,
-  left: 38,
-  zIndex: 2,
-});
-
-const WelcomeMessageShadow = styled(Typography)({
-  color: "rgb(74, 74, 74, 0.5)",
-  fontFamily: "Rubik Mono One",
-  fontSize: "20px",
-  textAlign: "start",
-  top: 38,
-  left: 36,
-  position: "absolute",
-  zIndex: 0,
+  textShadow: "-1px 1px rgba(0, 0, 0, 0.3)",
+  margin: "32px 0px 16px 32px",
+  marginTop: "38px",
 });
 
 const CoachName = styled(Typography)({
@@ -39,7 +27,6 @@ const CoachName = styled(Typography)({
   fontFamily: "Rubik Mono One",
   fontSize: "18px",
   textAlign: "center",
-  marginTop: "68px",
 });
 
 const TeamAndSport = styled(Typography)({
@@ -58,6 +45,7 @@ const SectionTitle = styled(Typography)({
   textAlign: "start",
   marginLeft: "32px",
   marginTop: "16px",
+  textShadow: "-1px 1px rgba(0, 0, 0, 0.3)",
 });
 
 const SquadDataContainer = styled("div")({
@@ -86,10 +74,6 @@ const SquadDataElementText = styled(Typography)({
   fontFamily: "Rubik Mono One",
   color: "#33658A",
   fontWeight: 400,
-});
-
-const WelcomeMessageContainer = styled("div")({
-  position: "relative",
 });
 
 const NextEventsContainer = styled("div")({
@@ -131,10 +115,7 @@ export const DashboardPresentation = memo(
     return (
       <PageContainer>
         <CoachIcon />
-        <WelcomeMessageContainer>
-          <WelcomeMessageText>Welcome</WelcomeMessageText>
-          <WelcomeMessageShadow>Welcome</WelcomeMessageShadow>
-        </WelcomeMessageContainer>
+        <WelcomeMessageText>Welcome</WelcomeMessageText>
         <CoachName>{coachName}</CoachName>
         <TeamAndSport>
           {teamName} - {sport}
@@ -144,7 +125,7 @@ export const DashboardPresentation = memo(
           {nextEvents.map((event) => (
             <EventCard
               title={event.title}
-              subtitle={event.subtitle}
+              gameLocation={event.gameLocation}
               day={event.day}
               month={event.month}
               eventType={event.eventType}

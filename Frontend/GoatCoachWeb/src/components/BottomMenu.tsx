@@ -15,7 +15,7 @@ const BottomNavigationContainer = styled("div")({
   padding: "8px 20px",
   right: 0,
   left: 0,
-  backgroundColor: "rgba(51, 101, 138, 0.2)",
+  backgroundColor: "#D6E0E8",
   borderRadius: "16px 16px 0 0",
 });
 
