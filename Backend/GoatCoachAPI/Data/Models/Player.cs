@@ -13,7 +13,7 @@ namespace GoatCoachAPI.Data.Models
         [RegularExpression(@"^[a-zA-Z\s]*$", ErrorMessage = "Full Name should contain only letters!")]
         public string FullName { get; set; }
 
-        public string? Attributes { get; set; }
+        public int Age { get; set; }
 
         [Required(ErrorMessage = "Position is required!")]
         [MinLength(2, ErrorMessage = "Position is too short!")]
