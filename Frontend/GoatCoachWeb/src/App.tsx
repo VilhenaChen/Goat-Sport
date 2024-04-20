@@ -1,5 +1,9 @@
-import { isMobile } from "react-device-detect";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom";
 import "./App.css";
 import { DashboardContainer as Dashboard } from "./pages/Dashboard/DashboardContainer";
 import { ErrorWeb } from "./pages/ErrorWeb/ErrorWeb";
@@ -9,16 +13,20 @@ import { useAppSelector } from "./store";
 
 function App() {
   const isLoggedIn = useAppSelector((state) => state.loggedIn);
+  const isSportChosen = useAppSelector((state) => state.chosenSport);
+
   return (
     <Router>
       <Routes>
         <Route
           path="/"
-          element={
-            isMobile ? isLoggedIn ? <Dashboard /> : <HomePage /> : <ErrorWeb />
-          }
+          element={isSportChosen ? <Dashboard /> : <HomePage />}
         />
-        <Route path="/login" element={<Login />} />
+        <Route path="/error-web" element={<ErrorWeb />} />
+        <Route
+          path="/login"
+          element={!isLoggedIn ? <Login /> : <Navigate replace to="/" />}
+        />
       </Routes>
     </Router>
   );
