@@ -4,6 +4,7 @@ import { memo, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../store";
 import { userActions } from "../store/userSlice";
 import { TabEnum } from "../utils/utils";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const BottomNavigationContainer = styled("div")({
   position: "fixed",
@@ -55,10 +56,20 @@ const TabText = styled(Typography)({
 export const BottomMenu = memo(() => {
   const tabChosen = useAppSelector((state) => state.tabChosen);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const onClickTab = useCallback(
     (tab: TabEnum) => {
+      switch(tab){
+        case TabEnum.CALENDAR: navigate("/calendar");
+        break;
+        case TabEnum.DASHBOARD: navigate("/");
+        break;
+        case TabEnum.SQUAD: navigate("/players");
+        break;
+      }
       dispatch(userActions.changeTab({ tab }));
+
     },
     [dispatch]
   );

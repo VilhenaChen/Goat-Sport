@@ -13,6 +13,7 @@ import { LoginPageContainer as Login } from "./pages/LoginPage/LoginPageContaine
 import { RegisterPageContainer as Register } from "./pages/RegisterPage/RegisterPageContainer";
 import UserProfile from "./pages/UserProfile/UserProfileContainer";
 import { useAppSelector } from "./store";
+import { ListPlayersContainer } from "./pages/Players/ListPlayers/ListPlayersContainer";
 
 function App() {
   const isLoggedIn = useAppSelector((state) => state.loggedIn);
@@ -45,6 +46,7 @@ function App() {
           element={!isLoggedIn ? <Register /> : <Navigate replace to="/" />}
         />
         <Route path="/profile" element={<UserProfile />} />
+        <Route path="/players" element={<ListPlayersContainer />} />
       </Routes>
     </Router>
   );
