@@ -11,6 +11,7 @@ import { ErrorWeb } from "./pages/ErrorWeb/ErrorWeb";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPageContainer as Login } from "./pages/LoginPage/LoginPageContainer";
 import { RegisterPageContainer as Register } from "./pages/RegisterPage/RegisterPageContainer";
+import UserProfile from "./pages/UserProfile/UserProfileContainer";
 import { useAppSelector } from "./store";
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
           path="/register"
           element={!isLoggedIn ? <Register /> : <Navigate replace to="/" />}
         />
+        <Route path="/profile" element={<UserProfile />} />
       </Routes>
     </Router>
   );

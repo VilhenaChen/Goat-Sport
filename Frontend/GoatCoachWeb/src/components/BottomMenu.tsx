@@ -36,12 +36,15 @@ const Tab = styled("div")(({ selected }: TabProps) => ({
 
 const CalendarIcon = styled(CalendarMonth)({
   color: "#33658A",
+  fontSize: "32px",
 });
 const DashboardIcon = styled(Home)({
   color: "#33658A",
+  fontSize: "32px",
 });
 const SquadIcon = styled(Groups)({
   color: "#33658A",
+  fontSize: "32px",
 });
 
 const TabText = styled(Typography)({
