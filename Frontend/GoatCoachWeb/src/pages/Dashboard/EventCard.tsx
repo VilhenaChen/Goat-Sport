@@ -90,13 +90,19 @@ const Subtitle = styled(Typography)({
   zIndex: 1,
 });
 
-const SubtitleContainer = styled("div")({
-  fontFamily: "Rubik",
-  fontSize: "12px",
-  color: "#FFFFFF",
-  fontWeight: 600,
-  zIndex: 1,
-});
+interface SubtitleContainerProps {
+  gameLocation?: GameLocationEnum;
+}
+
+const SubtitleContainer = styled("div")(
+  ({ gameLocation }: SubtitleContainerProps) => ({
+    padding: "4px 8px",
+    backgroundColor:
+      gameLocation === GameLocationEnum.HOME ? "#3A8A33" : "#8A3333",
+    borderRadius: "12px",
+    zIndex: 1,
+  })
+);
 
 export interface EventCardProps {
   day: number;
@@ -121,7 +127,7 @@ const EventCard = memo(
         </DateContainer>
         <Title>{title}</Title>
         {eventType === EventType.Game ? (
-          <SubtitleContainer>
+          <SubtitleContainer gameLocation={gameLocation}>
             <Subtitle>{gameLocation}</Subtitle>
           </SubtitleContainer>
         ) : null}
