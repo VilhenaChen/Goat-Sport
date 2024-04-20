@@ -16,14 +16,18 @@ export const HomePage = memo(() => {
 
   const loginClick = useCallback(()=>{
     navigate("/login");
-  },[])
+  },[]);
+  
+  const registerClick = useCallback(()=>{
+    navigate("/login");
+  },[]);
 
   return (
     <BackgroundContainer BackgroundImage={BackgroundImage}>
       <HomepageContainer>
         <img src={Logo} alt="GoatCoach Logo" />
         <Button variant="contained" onClick={loginClick}>Login</Button>
-        <Button variant="contained">Register</Button>
+        <Button variant="contained" onClick={registerClick}>Register</Button>
       </HomepageContainer>
     </BackgroundContainer>
   );
