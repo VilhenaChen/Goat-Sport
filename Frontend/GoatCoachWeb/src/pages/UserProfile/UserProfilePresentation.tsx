@@ -4,6 +4,7 @@ import styled from "styled-components";
 import ProfileIcon from "../../assets/coach-icon.svg";
 import { BottomMenu } from "../../components/BottomMenu";
 import { HeaderContainer } from "../../components/Header";
+import TabsComponent from "../../components/TabsComponent";
 
 const PageContainer = styled("div")({
   height: "100%",
@@ -48,8 +49,12 @@ interface UserProfilePresentationProps {
   name: string;
   age: number;
   email: string;
+  teamName: string;
+  sports: string[];
+  profileTabChosen: string;
   onClickLogout: () => void;
-  onClickDelete: () => void;
+  onClickDeleteUser: () => void;
+  onChangeTab: (tab: string) => void;
 }
 
 export const UserProfilePresentation = memo(
@@ -57,30 +62,60 @@ export const UserProfilePresentation = memo(
     name,
     age,
     email,
+    teamName,
+    sports,
+    profileTabChosen,
     onClickLogout,
-    onClickDelete,
+    onClickDeleteUser,
+    onChangeTab,
   }: UserProfilePresentationProps) => {
     return (
       <PageContainer>
         <HeaderContainer title="Manager Details" />
         <ContentContainer>
           <StyledProfileIcon src={ProfileIcon} alt="Profile" />
-          <InfoContainer>
-            <Typography className="label">Name:</Typography>
-            <Typography className="value">{name}</Typography>
-            <Typography className="label">Age:</Typography>
-            <Typography className="value">{age}</Typography>
-            <Typography className="label">Email:</Typography>
-            <Typography className="value">{email}</Typography>
-          </InfoContainer>
+          <TabsComponent
+            activeTab={profileTabChosen}
+            onTabClick={onChangeTab}
+            tabs={["Info", "Team"]}
+          />
+          {profileTabChosen === "Info" ? (
+            <InfoContainer>
+              <div>
+                <Typography className="label">Name:</Typography>
+                <Typography className="value">{name}</Typography>
+              </div>
+              <div>
+                <Typography className="label">Age:</Typography>
+                <Typography className="value">{age}</Typography>
+              </div>
+              <div>
+                <Typography className="label">Email:</Typography>
+                <Typography className="value">{email}</Typography>
+              </div>
+            </InfoContainer>
+          ) : (
+            <InfoContainer>
+              <div>
+                <Typography className="label">Team Name:</Typography>
+                <Typography className="value">{teamName}</Typography>
+              </div>
+              <div>
+                <Typography className="label">Sports:</Typography>
+                {sports.map((sport) => (
+                  <Typography className="value">{sport}</Typography>
+                ))}
+              </div>
+            </InfoContainer>
+          )}
           <ButtonsContainer>
-            <ActionButton variant="contained" href="/profile/edit">
+            <ActionButton variant="contained" href={`/profile/edit-user`}>
               Edit
             </ActionButton>
             <ActionButton
               variant="contained"
               color="error"
-              onClick={onClickDelete}
+              onClick={onClickDeleteUser}
             >
               Delete
             </ActionButton>

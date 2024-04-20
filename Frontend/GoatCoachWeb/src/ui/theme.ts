@@ -15,6 +15,14 @@ let themeTemp = createTheme({
 
 themeTemp = createTheme(themeTemp, {
   components: {
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          fontFamily: "Rubik Mono One",
+          fontSize: "20px",
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -45,6 +53,20 @@ themeTemp = createTheme(themeTemp, {
             textAlign: "start",
             marginLeft: "16px",
             fontWeight: 400,
+          },
+          "&.tab": {
+            fontFamily: "Rubik",
+            fontSize: "24px",
+            textAlign: "start",
+            marginLeft: "16px",
+            fontWeight: 400,
+            color: themeTemp.palette.primary.light,
+            padding: "8px",
+            boxSizing: "border-box",
+            "&&.selected": {
+              color: themeTemp.palette.primary.main,
+              backgroundColor: "rgba(51, 101, 138, 0.1)",
+            },
           },
         },
       },

@@ -116,7 +116,7 @@ const EventCard = memo(
   ({ day, month, title, gameLocation, eventType }: EventCardProps) => {
     return (
       <EventCardContainer>
-        {eventType === EventType.Game ? (
+        {eventType === EventType.GAME ? (
           <GameBackground />
         ) : (
           <PracticeBackground />
@@ -126,7 +126,7 @@ const EventCard = memo(
           <Day>{day}</Day>
         </DateContainer>
         <Title>{title}</Title>
-        {eventType === EventType.Game ? (
+        {eventType === EventType.GAME ? (
           <SubtitleContainer gameLocation={gameLocation}>
             <Subtitle>{gameLocation}</Subtitle>
           </SubtitleContainer>

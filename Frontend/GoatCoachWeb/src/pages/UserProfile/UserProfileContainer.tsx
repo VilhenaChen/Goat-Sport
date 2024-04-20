@@ -1,4 +1,4 @@
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useVerifyMobileView } from "../../hooks/useVerifyMobileView";
 import { useVerifyUserLogin } from "../../hooks/useVerifyUserLogin";
@@ -17,13 +17,23 @@ const UserProfileContainer = memo(() => {
 
   const handleDelete = useCallback(() => {}, []);
 
+  const [profileTabChosen, setProfileTabChosen] = useState<string>("Info");
+
+  const handleProfileTabChange = useCallback((tab: string) => {
+    setProfileTabChosen(tab);
+  }, []);
+
   return (
     <UserProfilePresentation
       name="Rogério Shaimite"
       age={18}
       email="test@gmail.com"
+      teamName="test"
+      sports={["Football", "Soccer"]}
+      profileTabChosen={profileTabChosen}
       onClickLogout={handleLogout}
-      onClickDelete={handleDelete}
+      onClickDeleteUser={handleDelete}
+      onChangeTab={handleProfileTabChange}
     />
   );
 });

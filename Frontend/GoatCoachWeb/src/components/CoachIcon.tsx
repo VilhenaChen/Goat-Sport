@@ -1,5 +1,6 @@
 import { styled } from "@mui/material";
-import { memo } from "react";
+import { memo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "../assets/coach-icon.svg";
 
 const StyledIcon = styled("img")({
@@ -10,5 +11,9 @@ const StyledIcon = styled("img")({
 });
 
 export const CoachIcon = memo(() => {
-  return <StyledIcon alt="coach" src={Icon} />;
+  const navigate = useNavigate();
+  const handleClick = useCallback(() => {
+    navigate("/profile");
+  }, [navigate]);
+  return <StyledIcon alt="coach" src={Icon} onClick={handleClick} />;
 });

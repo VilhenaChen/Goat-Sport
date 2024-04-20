@@ -20,20 +20,20 @@ export const DashboardContainer = memo(() => {
           gameLocation: GameLocationEnum.HOME,
           day: 10,
           month: "MAI",
-          eventType: EventType.Game,
+          eventType: EventType.GAME,
         },
         {
           title: "Treino de Atacantes",
           day: 31,
           month: "MAI",
-          eventType: EventType.Practice,
+          eventType: EventType.PRACTICE,
         },
         {
           title: "Porto",
           gameLocation: GameLocationEnum.AWAY,
           day: 4,
           month: "JUN",
-          eventType: EventType.Game,
+          eventType: EventType.GAME,
         },
       ]}
     />
