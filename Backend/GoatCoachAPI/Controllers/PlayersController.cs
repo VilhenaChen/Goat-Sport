@@ -34,16 +34,23 @@ namespace GoatCoachAPI.Controllers
 
 		// GET: /Players/5
 		[HttpGet("{id}")]
-		public async Task<ActionResult<Player>> GetPlayer(int id)
+		public async Task<ActionResult<GetPlayerDetailsVM>> GetPlayer(int id)
 		{
-			var player = await _context.Players.FindAsync(id);
+			var player = await playerRepository.GetByIdAsync(id);
 
 			if (player == null)
 			{
 				return NotFound();
 			}
 
-			return player;
+			return new GetPlayerDetailsVM
+			{
+				Id = player.Id,
+				Name = player.FullName,
+				Age = player.Age,
+				Position = player.Position,
+                SportId = player.SportId
+            };
 		}
 
 		// PUT: /Players/5
