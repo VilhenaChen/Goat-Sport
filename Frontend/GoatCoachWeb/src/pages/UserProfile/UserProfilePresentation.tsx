@@ -9,20 +9,22 @@ import TabsComponent from "../../components/TabsComponent";
 const PageContainer = styled("div")({
   height: "100%",
   position: "relative",
-  overflowY: "hidden",
   marginTop: "90px",
-  padding: "16px 36px 88px 36px",
+  padding: "0px 36px 88px 36px",
+  display: "flex",
+  flexDirection: "column",
 });
 
 const StyledProfileIcon = styled("img")({
   width: "90px",
   alignSelf: "center",
+  marginTop: "72px",
 });
 
 const ContentContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
-
+  overflowY: "auto",
   gap: "32px",
 });
 
@@ -105,16 +107,20 @@ export const UserProfilePresentation = memo(
             <ActionButton variant="contained" href={`/profile/edit-user`}>
               Edit
             </ActionButton>
-            <ActionButton
-              variant="contained"
-              color="error"
-              onClick={onClickDeleteUser}
-            >
-              Delete
-            </ActionButton>
-            <ActionButton variant="contained" onClick={onClickLogout}>
-              Logout
-            </ActionButton>
+            {profileTabChosen === "Info" ? (
+              <>
+                <ActionButton
+                  variant="contained"
+                  color="error"
+                  onClick={onClickDeleteUser}
+                >
+                  Delete
+                </ActionButton>
+                <ActionButton variant="contained" onClick={onClickLogout}>
+                  Logout
+                </ActionButton>
+              </>
+            ) : null}
           </ButtonsContainer>
         </ContentContainer>
         <BottomMenu />

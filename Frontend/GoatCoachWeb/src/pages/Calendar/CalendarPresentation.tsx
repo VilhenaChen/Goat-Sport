@@ -1,4 +1,4 @@
-import { Typography, styled } from "@mui/material";
+import { Button, Typography, styled } from "@mui/material";
 import { memo } from "react";
 import { BottomMenu } from "../../components/BottomMenu";
 import { CoachIcon } from "../../components/CoachIcon";
@@ -25,6 +25,15 @@ const EventsContainer = styled("div")({
 
 const SectionTitle = styled(Typography)({
   "&&": { textAlign: "start" },
+});
+
+const CreateButton = styled(Button)({
+  position: "fixed",
+  marginBottom: "16px",
+  bottom: 80,
+  right: "28vw",
+  left: "28vw",
+  zIndex: 2,
 });
 
 interface EventsByMonth {
@@ -102,7 +111,9 @@ const CalendarPresentation = memo(
                 </EventsContainer>
               </>
             ))}
-
+        <CreateButton variant="contained" href="/create-event">
+          Create Event
+        </CreateButton>
         <BottomMenu />
       </PageContainer>
     );

@@ -57,6 +57,19 @@ const PracticeBackground = styled("div")({
   opacity: 0.4,
 });
 
+const NoBackground = styled("div")({
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  backgroundColor: "#FFFFFF",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  position: "absolute",
+  borderRadius: "24px",
+  opacity: 0.4,
+});
+
 const DateContainer = styled("div")({
   position: "absolute",
   top: 12,
@@ -109,7 +122,7 @@ export interface EventCardProps {
   month: string;
   title: string;
   gameLocation?: GameLocationEnum;
-  eventType: EventType;
+  eventType?: EventType;
 }
 
 const EventCard = memo(
@@ -118,12 +131,14 @@ const EventCard = memo(
       <EventCardContainer>
         {eventType === EventType.GAME ? (
           <GameBackground />
-        ) : (
+        ) : eventType === EventType.PRACTICE ? (
           <PracticeBackground />
+        ) : (
+          <NoBackground />
         )}
         <DateContainer>
           <Month>{month}</Month>
-          <Day>{day}</Day>
+          <Day>{day === 0 ? "" : day}</Day>
         </DateContainer>
         <Title>{title}</Title>
         {eventType === EventType.GAME ? (

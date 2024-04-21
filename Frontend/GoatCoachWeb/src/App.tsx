@@ -7,6 +7,7 @@ import {
 import "./App.css";
 import CalendarContainer from "./pages/Calendar/CalendarContainer";
 import { ChooseSportsContainer as ChooseSports } from "./pages/ChooseSportsPage/ChooseSportsContainer";
+import CreateEventContainer from "./pages/CreateEvent/CreateEventContainer";
 import { DashboardContainer as Dashboard } from "./pages/Dashboard/DashboardContainer";
 import { ErrorWeb } from "./pages/ErrorWeb/ErrorWeb";
 import { HomePage } from "./pages/HomePage/HomePage";
@@ -61,6 +62,16 @@ function App() {
           path="/calendar"
           element={
             isSportChosen ? <CalendarContainer /> : <Navigate replace to="/" />
+          }
+        />
+        <Route
+          path="/create-event"
+          element={
+            isSportChosen ? (
+              <CreateEventContainer />
+            ) : (
+              <Navigate replace to="/" />
+            )
           }
         />
       </Routes>
