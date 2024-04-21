@@ -10,6 +10,9 @@ let themeTemp = createTheme({
     error: {
       main: "#A54343",
     },
+    success: {
+      main: "#51B267",
+    },
   },
 });
 
@@ -38,6 +41,12 @@ themeTemp = createTheme(themeTemp, {
             color: themeTemp.palette.primary.main,
             fontFamily: "Rubik Mono One",
             fontSize: "24px",
+          },
+          "&.subtitle": {
+            color: themeTemp.palette.primary.main,
+            fontFamily: "Rubik Mono One",
+            fontSize: "20px",
+            textAlign: "start",
           },
           "&.label": {
             color: themeTemp.palette.primary.dark,
