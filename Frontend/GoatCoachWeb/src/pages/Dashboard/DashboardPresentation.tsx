@@ -3,7 +3,7 @@ import { Typography, styled } from "@mui/material";
 import { memo } from "react";
 import { BottomMenu } from "../../components/BottomMenu";
 import { CoachIcon } from "../../components/CoachIcon";
-import EventCard, { EventCardProps } from "./EventCard";
+import EventCard, { EventCardProps } from "../../components/EventCard";
 
 const PageContainer = styled("div")({
   height: "100%",
