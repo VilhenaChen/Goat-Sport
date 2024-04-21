@@ -6,7 +6,7 @@ namespace GoatCoachAPI.ViewModels
 	{
 		public string GameType { get; set; }
 
-		[MinLength(5, ErrorMessage = "Description is too short!")]
+		[MinLength(2, ErrorMessage = "Description is too short!")]
 		[MaxLength(150, ErrorMessage = "Description is too long!")]
 		public string Description { get; set; }
 

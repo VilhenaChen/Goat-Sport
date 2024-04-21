@@ -8,7 +8,7 @@ namespace GoatCoachAPI.Data.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Opponent is required!")]
-        [MinLength(5, ErrorMessage = "Opponent is too short!")]
+        [MinLength(2, ErrorMessage = "Opponent is too short!")]
         [MaxLength(150, ErrorMessage = "Opponent is too long!")]
         public string Opponent { get; set; }
 

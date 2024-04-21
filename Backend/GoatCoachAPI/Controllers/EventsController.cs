@@ -61,9 +61,10 @@ namespace GoatCoachAPI.Controllers
 			else if (model.GameType == "Game")
 				return await CreateMatchEvent(model);
 			else
-				return BadRequest("Tipo de Evento inválido");
+				return BadRequest("Invalid event!");
 		}
 
+		[ApiExplorerSettings(IgnoreApi = true)]
 		[HttpPost]
 		public async Task<ActionResult> CreateMatchEvent(CreateEventVM model)
 		{
@@ -85,9 +86,7 @@ namespace GoatCoachAPI.Controllers
 					return BadRequest("Player don't exist in this Team");
 			}
 
-			bool home = true;
-			if (model.Local == "Away")
-				home = false;
+			bool home = (model.Local == "Home")? true : false;
 
 			var calendar = await calendarRepository.GetByTeamSportIdsAsync(model.TeamId, model.SportId);
 
@@ -140,6 +139,7 @@ namespace GoatCoachAPI.Controllers
 			return Ok();
 		}
 
+		[ApiExplorerSettings(IgnoreApi = true)]
 		[HttpPost]
 		public async Task<ActionResult> CreatePracticeEvent(CreateEventVM model)
 		{
