@@ -54,7 +54,7 @@ function App() {
         <Route path="/player/:id/edit" element={<ListPlayersContainer />} />//TODO
         <Route path="/player/:id/delete" element={<ListPlayersContainer />} />//TODO
         <Route path="/player/:id/note/create" element={<AddNoteContainer />} />//TODO
-        <Route path="/player/:id" element={<ListPlayersContainer />} /> //TODO
+        <Route path="/player/:id" element={<PlayersDetailsContainer />} /> //TODO
         <Route path="/player/create" element={<ListPlayersContainer />} />
         //TODO
         <Route
