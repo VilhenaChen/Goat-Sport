@@ -36,27 +36,53 @@ namespace GoatCoachAPI.Controllers
 
 			List<MatchVM> matches = new List<MatchVM>();
 			List<PracticeVM> practices = new List<PracticeVM>();
+			List<DateTime> dates = new List<DateTime>();
 
 			foreach (var matchDb in matchesList)
 			{
-				var match = new MatchVM
-				{
-					Description = matchDb.Opponent,
-					Date = matchDb.Date,
-					FinalScore = matchDb.FinalResult,
-					IsHome = matchDb.IsHome
-				};
-				matches.Add(match);
+				if (DateTime.Now <= matchDb.Date)
+					dates.Add(matchDb.Date);
 			}
 
 			foreach (var practiceDb in practicesList)
 			{
-				var practice = new PracticeVM
+				if (DateTime.Now <= practiceDb.Date)
+					dates.Add(practiceDb.Date);
+			}
+
+			var resultDates = dates.OrderBy(d => d.Millisecond).ToList();
+
+			foreach (var date in resultDates)
+			{
+				var matchesResults = matchesList.Where(m => m.Date == date).ToList();
+				if (matchesResults.Count > 0)
 				{
-					Description = practiceDb.Description,
-					Date = practiceDb.Date
-				};
-				practices.Add(practice);
+					foreach (var match in matchesResults)
+					{
+						matches.Add(new MatchVM
+						{
+							Date = date,
+							Description = match.Opponent,
+							FinalScore = match.FinalResult,
+							IsHome = match.IsHome,
+							Order = resultDates.IndexOf(date)
+						});
+					}
+				}
+
+				var practiceResults = practicesList.Where(m => m.Date == date).ToList();
+				if (practiceResults.Count > 0)
+				{
+					foreach (var match in practiceResults)
+					{
+						practices.Add(new PracticeVM
+						{
+							Date = date,
+							Description = match.Description,
+							Order = resultDates.IndexOf(date)
+						});
+					}
+				}
 			}
 
 			var model = new GetCalendarVM
