@@ -1,10 +1,8 @@
 import { CalendarMonth, Groups, Home } from "@mui/icons-material";
 import { Divider, Typography, styled } from "@mui/material";
-import { memo, useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "../store";
-import { userActions } from "../store/userSlice";
+import { memo, useCallback, useMemo } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { TabEnum } from "../utils/utils";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const BottomNavigationContainer = styled("div")({
   position: "fixed",
@@ -54,24 +52,39 @@ const TabText = styled(Typography)({
 });
 
 export const BottomMenu = memo(() => {
-  const tabChosen = useAppSelector((state) => state.tabChosen);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const tabChosen = useMemo(() => {
+    const pathname = location.pathname;
+    switch (pathname) {
+      case "/calendar":
+        return TabEnum.CALENDAR;
+      case "/":
+        return TabEnum.DASHBOARD;
+      case "/players":
+        return TabEnum.SQUAD;
+      default:
+        return null;
+    }
+  }, [location.pathname]);
 
   const onClickTab = useCallback(
     (tab: TabEnum) => {
-      switch(tab){
-        case TabEnum.CALENDAR: navigate("/calendar");
-        break;
-        case TabEnum.DASHBOARD: navigate("/");
-        break;
-        case TabEnum.SQUAD: navigate("/players");
-        break;
+      switch (tab) {
+        case TabEnum.CALENDAR:
+          navigate("/calendar");
+          break;
+        case TabEnum.DASHBOARD:
+          navigate("/");
+          break;
+        case TabEnum.SQUAD:
+          navigate("/players");
+          break;
       }
-      dispatch(userActions.changeTab({ tab }));
-
     },
-    [dispatch]
+    [navigate]
   );
 
   return (

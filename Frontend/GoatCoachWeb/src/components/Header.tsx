@@ -28,6 +28,7 @@ const Btn = styled(Button)(() => ({
 
 const Text = styled(Typography)(() => ({
   overflowWrap: "break-word",
+  flex: 1,
 }));
 
 interface HeaderContainerProps {

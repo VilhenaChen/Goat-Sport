@@ -1,8 +1,8 @@
 import { Typography, styled } from "@mui/material";
 import { memo } from "react";
-import Gym from "../../assets/gym.png";
-import Stadium from "../../assets/stadium.png";
-import { EventType, GameLocationEnum } from "../../utils/utils";
+import Gym from "../assets/gym.png";
+import Stadium from "../assets/stadium.png";
+import { EventType, GameLocationEnum } from "../utils/utils";
 
 const Month = styled(Typography)({
   color: "#FFFFFF",
