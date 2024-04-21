@@ -164,5 +164,30 @@ namespace GoatCoachAPI.Controllers
             return Ok(notes);
 
 		}
+
+		// POST: /Players/CreateNote
+		[HttpPost]
+		public async Task<ActionResult> CreateNote(int playerId, GetNotesOfPlayerVM note)
+		{
+            var player = await playerRepository.GetByIdAsync(playerId);
+
+            if (player == null)
+            {
+                return NotFound("A Player with id:" + playerId + " does not exist");
+            }
+
+			var newNote = new Note 
+			{
+				Title = note.Title,
+				Description = note.Description,
+				Date = DateTime.Now,
+                PlayerId = playerId,
+            };
+
+			await noteRepository.CreateAsync(newNote);
+
+			return Ok();
+
+        }
     }
 }
