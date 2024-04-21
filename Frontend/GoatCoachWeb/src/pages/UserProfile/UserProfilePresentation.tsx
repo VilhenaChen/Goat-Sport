@@ -76,6 +76,7 @@ export const UserProfilePresentation = memo(
           <TabsComponent
             activeTab={profileTabChosen}
             onTabClick={onChangeTab}
+            fixed={true}
             tabs={["Info", "Team"]}
           />
           {profileTabChosen === "Info" ? (

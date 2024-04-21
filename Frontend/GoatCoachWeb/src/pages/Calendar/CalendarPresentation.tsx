@@ -62,6 +62,7 @@ const CalendarPresentation = memo(
         <HeaderContainer title="Calendar" backgroundColor="#FFFFFF" />
         <CoachIcon />
         <TabsComponent
+          fixed={true}
           tabs={tabs}
           activeTab={activeTab}
           onTabClick={onTabClick}

@@ -17,6 +17,8 @@ import { HeaderContainer } from "../../../components/Header";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import PlayerAvatar from "../../../assets/playerAvatar.svg";
 import NoPlayers from "../../../assets/NoPlayers.svg";
+import { Modal } from '@mui/base/Modal';
+
 
 interface Player {
   id: number;
@@ -75,12 +77,16 @@ const CreateButton = styled(Button)({
 
 interface ListPlayersPresentationProps {
   handlePlayerCreation: () => void;
-  onClickPlayer: (id:number) => void;
+  onClickPlayer: (id: number) => void;
   playersList: Player[];
 }
 
 export const ListPlayersPresentation = memo(
-  ({ handlePlayerCreation, playersList, onClickPlayer }: ListPlayersPresentationProps) => {
+  ({
+    handlePlayerCreation,
+    playersList,
+    onClickPlayer,
+  }: ListPlayersPresentationProps) => {
     return (
       <PageContainer>
         <HeaderContainer title="Team Name" />
@@ -102,7 +108,7 @@ export const ListPlayersPresentation = memo(
         {playersList.length > 0 ? (
           <ListPlayers>
             {playersList.map((player) => (
-              <Item onClick={()=>onClickPlayer(player.id)}>
+              <Item onClick={() => onClickPlayer(player.id)}>
                 <ListItemAvatar>
                   <img src={PlayerAvatar} alt="Player Avatar"></img>
                 </ListItemAvatar>

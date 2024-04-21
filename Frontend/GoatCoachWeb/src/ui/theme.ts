@@ -40,7 +40,7 @@ themeTemp = createTheme(themeTemp, {
           "&.title": {
             color: themeTemp.palette.primary.main,
             fontFamily: "Rubik Mono One",
-            fontSize: "24px",
+            fontSize: "20px",
           },
           "&.subtitle": {
             color: themeTemp.palette.primary.main,
