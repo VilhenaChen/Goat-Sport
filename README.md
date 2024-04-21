@@ -5,3 +5,5 @@ Foi nesta altura que nos surgiu a ideia da nossa app o “GoatCoach” onde o tr
 Gerir equipas de diferentes modalidades e escalões no mesmo local
 Gerir e visualizar o seu calendário de jogos e treinos, planeando as equipas principais e suplentes
 Criar e gerir os seus jogadores, podendo criar notas e ainda observar os castigos e lesões dos mesmos de forma a poder gerir as formações dos jogos.
+Demo: https://we.tl/t-XUxfSOcAYr 
+Apresentacao: https://we.tl/t-MaHZrpLhRv
