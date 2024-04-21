@@ -16,6 +16,7 @@ import { ListPlayersContainer } from "./pages/Players/ListPlayers/ListPlayersCon
 import { RegisterPageContainer as Register } from "./pages/RegisterPage/RegisterPageContainer";
 import UserProfile from "./pages/UserProfile/UserProfileContainer";
 import { useAppSelector } from "./store";
+import { PlayersDetailsContainer } from "./pages/Players/Details/PlayerDetailsContainer";
 
 function App() {
   const isLoggedIn = useAppSelector((state) => state.loggedIn);
@@ -49,6 +50,8 @@ function App() {
         />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/players" element={<ListPlayersContainer />} />
+        <Route path="/player/:id/edit" element={<ListPlayersContainer />} />//TODO
+        <Route path="/player/:id/delete" element={<ListPlayersContainer />} />//TODO
         <Route path="/player/:id" element={<ListPlayersContainer />} /> //TODO
         <Route path="/player/create" element={<ListPlayersContainer />} />
         //TODO
