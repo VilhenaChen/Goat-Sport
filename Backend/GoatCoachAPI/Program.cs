@@ -24,6 +24,14 @@ builder.Services.AddScoped<ITeamRepository, TeamRepository>();
 builder.Services.AddScoped<ISportRepository, SportRepository>();
 builder.Services.AddScoped<ISportTeamRepository, SportTeamRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+builder.Services.AddScoped<ICalendarRepository, CalendarRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<IPrincipalTeamRepository, PrincipalTeamRepository>();
+builder.Services.AddScoped<IPrincipalTeamPlayersRepository, PrincipalTeamPlayersRepository>();
+builder.Services.AddScoped<ISubstituteTeamRepository, SubstituteTeamRepository>();
+builder.Services.AddScoped<ISubstituteTeamPlayersRepository, SubstituteTeamPlayersRepository>();
+builder.Services.AddScoped<IPracticeRepository, PracticeRepository>();
+builder.Services.AddScoped<IPracticePlayersRepository, PracticePlayersRepository>();
 
 var app = builder.Build();
 

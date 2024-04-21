@@ -77,6 +77,8 @@ namespace GoatCoachAPI.Data
 				.WithMany(st => st.SubstituteTeamPlayers)
 				.HasForeignKey(stp => stp.SubstituteTeamId);
 
+			modelBuilder.Entity<Calendar>().HasIndex(c => c.TeamId).IsUnique(false);
+
 			base.OnModelCreating(modelBuilder);
 		}
 

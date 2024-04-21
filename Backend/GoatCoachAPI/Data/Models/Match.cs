@@ -7,14 +7,14 @@ namespace GoatCoachAPI.Data.Models
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Description is required!")]
-        [MinLength(5, ErrorMessage = "Description is too short!")]
-        [MaxLength(150, ErrorMessage = "Description is too long!")]
+        [Required(ErrorMessage = "Opponent is required!")]
+        [MinLength(2, ErrorMessage = "Opponent is too short!")]
+        [MaxLength(150, ErrorMessage = "Opponent is too long!")]
         public string Opponent { get; set; }
 
 		[MinLength(2)]
 		[MaxLength(10)]
-		public string FinalResult { get; set; }
+		public string? FinalResult { get; set; }
 
         public DateTime Date { get; set; }
 
@@ -22,9 +22,9 @@ namespace GoatCoachAPI.Data.Models
 
         public List<Punishment>? Punishments { get; set; }
 
-        public SubstituteTeam SubstituteTeam { get; set; }
+        public SubstituteTeam? SubstituteTeam { get; set; }
 
-        public PrincipalTeam PrincipalTeam { get; set; }
+        public PrincipalTeam? PrincipalTeam { get; set; }
 
         //Relationships
         public int CalendarId { get; set; }

@@ -4,6 +4,7 @@ using GoatCoachAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GoatCoachAPI.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240421045559_FixCalendar")]
+    partial class FixCalendar
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Calendars", (string)null);
+                    b.ToTable("Calendars");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.ClinicalReport", b =>
@@ -78,7 +81,7 @@ namespace GoatCoachAPI.Migrations
                     b.HasIndex("PlayerId")
                         .IsUnique();
 
-                    b.ToTable("ClinicalReports", (string)null);
+                    b.ToTable("ClinicalReports");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Match", b =>
@@ -111,7 +114,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("CalendarId");
 
-                    b.ToTable("Matches", (string)null);
+                    b.ToTable("Matches");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Note", b =>
@@ -142,7 +145,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("Notes", (string)null);
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Player", b =>
@@ -178,7 +181,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Players", (string)null);
+                    b.ToTable("Players");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice", b =>
@@ -204,7 +207,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("CalendarId");
 
-                    b.ToTable("Practices", (string)null);
+                    b.ToTable("Practices");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Practice_Player", b =>
@@ -219,7 +222,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("PracticeId");
 
-                    b.ToTable("Practices_Players", (string)null);
+                    b.ToTable("Practices_Players");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam", b =>
@@ -238,7 +241,7 @@ namespace GoatCoachAPI.Migrations
                     b.HasIndex("MatchId")
                         .IsUnique();
 
-                    b.ToTable("PrincipalTeams", (string)null);
+                    b.ToTable("PrincipalTeams");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.PrincipalTeam_Player", b =>
@@ -253,7 +256,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("PrincipalTeamId");
 
-                    b.ToTable("PrincipalTeams_Players", (string)null);
+                    b.ToTable("PrincipalTeams_Players");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Punishment", b =>
@@ -292,7 +295,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("Punishments", (string)null);
+                    b.ToTable("Punishments");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Sport", b =>
@@ -310,7 +313,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sports", (string)null);
+                    b.ToTable("Sports");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Sport_Team", b =>
@@ -325,7 +328,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("TeamId");
 
-                    b.ToTable("Sports_Teams", (string)null);
+                    b.ToTable("Sports_Teams");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam", b =>
@@ -344,7 +347,7 @@ namespace GoatCoachAPI.Migrations
                     b.HasIndex("MatchId")
                         .IsUnique();
 
-                    b.ToTable("SubstituteTeams", (string)null);
+                    b.ToTable("SubstituteTeams");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.SubstituteTeam_Player", b =>
@@ -359,7 +362,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasIndex("SubstituteTeamId");
 
-                    b.ToTable("SubstituteTeams_Players", (string)null);
+                    b.ToTable("SubstituteTeams_Players");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.Team", b =>
@@ -381,7 +384,7 @@ namespace GoatCoachAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Teams", (string)null);
+                    b.ToTable("Teams");
                 });
 
             modelBuilder.Entity("GoatCoachAPI.Data.Models.User", b =>
