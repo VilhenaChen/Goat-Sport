@@ -1,11 +1,9 @@
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { memo } from "react";
 import styled from "styled-components";
-import ProfileIcon from "../../assets/coach-icon.svg";
 import { BottomMenu } from "../../../components/BottomMenu";
 import { HeaderContainer } from "../../../components/Header";
-import TabsComponent from "../../../components/TabsComponent";
-import { TextareaAutosize as BaseTextareaAutosize } from '@mui/base/TextareaAutosize';
+import { TextareaAutosize as BaseTextareaAutosize } from "@mui/base/TextareaAutosize";
 const PageContainer = styled("div")({
   height: "100%",
   position: "relative",
@@ -14,29 +12,11 @@ const PageContainer = styled("div")({
   padding: "16px 36px 88px 36px",
 });
 
-const StyledProfileIcon = styled("img")({
-  width: "90px",
-  alignSelf: "center",
-});
-
 const ContentContainer = styled("div")({
   display: "flex",
   flexDirection: "column",
 
   gap: "32px",
-});
-
-const ButtonsContainer = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
-  marginTop: "32px",
-});
-
-const InfoContainer = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  gap: "16px",
 });
 
 const ActionContainer = styled("div")({
@@ -79,12 +59,10 @@ const Textarea = styled(BaseTextareaAutosize)(
   &:focus-visible {
     outline: 0;
   }
-`,
+`
 );
 
-const ActionButton = styled(Button)({
-
-});
+const ActionButton = styled(Button)({});
 
 interface AddNotePresentationProps {
   onClickAddNote: () => void;
