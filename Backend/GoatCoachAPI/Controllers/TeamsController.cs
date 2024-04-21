@@ -3,6 +3,7 @@ using GoatCoachAPI.Data.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace GoatCoachAPI.Controllers
 {
@@ -13,13 +14,16 @@ namespace GoatCoachAPI.Controllers
 	{
 		private readonly ITeamRepository teamRepository;
 		private readonly ISportTeamRepository sportTeamRepository;
+        private readonly IPlayerRepository playerTeamRepository;
 
-		public TeamsController(ITeamRepository _teamRepository, ISportTeamRepository _sportTeamRepository)
+        public TeamsController(ITeamRepository _teamRepository, ISportTeamRepository _sportTeamRepository, IPlayerRepository _playerTeamRepository)
 		{
 			teamRepository = _teamRepository;
 			sportTeamRepository = _sportTeamRepository;
+			playerTeamRepository = _playerTeamRepository;
 
-		}
+
+        }
 
 		// GET: /Teams
 		[HttpGet]
@@ -103,23 +107,25 @@ namespace GoatCoachAPI.Controllers
 		public async Task<ActionResult<IEnumerable<Player>>> GetPlayersFromTeam(int teamId, int sportId)
 		{
 			var team = await teamRepository.GetByIdAsync(teamId);
+
+			if(team == null)
+			{
+                return NotFound();
+            }
+
+
 			team.SportsTeams = await sportTeamRepository.GetSportTeamByTeamId(teamId);
 
 
-			if (team == null || team.SportsTeams == null)
+
+            if (team.SportsTeams.IsNullOrEmpty() || !team.SportsTeams.Any(st => st.SportId == sportId))
 			{
-				return BadRequest();
+				return NotFound();
 			}
 
-			if (team.SportsTeams.Any(st => st.SportId == sportId))
-			{
-				return NoContent();
-			}
-			else
-			{
-				// Filter for the players from that team that play that Sport
-				return Ok(team.Players.Where(player => player.SportId == sportId).ToList());
-			}
+			var playersFromTeamSport = await playerTeamRepository.GetPlayersFromTeamByTeamIdAndSPortId(teamId, sportId);
+            // Filter for the players from that team that play that Sport
+            return Ok(playersFromTeamSport);
 		}
 	}
 }
