@@ -16,23 +16,23 @@ export const DashboardContainer = memo(() => {
       injuries={20}
       nextEvents={[
         {
-          title: "Porto",
-          gameLocation: GameLocationEnum.HOME,
-          day: 10,
+          day: 18,
           month: "MAI",
+          title: "Porto B",
+          gameLocation: GameLocationEnum.HOME,
           eventType: EventType.GAME,
         },
         {
-          title: "Treino de Atacantes",
-          day: 31,
+          day: 24,
           month: "MAI",
+          title: "Treino de Atacantes",
           eventType: EventType.PRACTICE,
         },
         {
-          title: "Porto",
+          day: 31,
+          month: "MAI",
+          title: "Sporting",
           gameLocation: GameLocationEnum.AWAY,
-          day: 4,
-          month: "JUN",
           eventType: EventType.GAME,
         },
       ]}

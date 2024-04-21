@@ -19,6 +19,7 @@ const Header = styled("div")(
     alignItems: "center",
     height: "72px",
     backgroundColor: backgroundColor ?? "transparent",
+    zIndex: 2,
   })
 );
 

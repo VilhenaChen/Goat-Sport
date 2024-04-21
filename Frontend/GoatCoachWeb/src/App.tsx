@@ -12,12 +12,12 @@ import { DashboardContainer as Dashboard } from "./pages/Dashboard/DashboardCont
 import { ErrorWeb } from "./pages/ErrorWeb/ErrorWeb";
 import { HomePage } from "./pages/HomePage/HomePage";
 import { LoginPageContainer as Login } from "./pages/LoginPage/LoginPageContainer";
+import { AddNoteContainer } from "./pages/Players/AddNote/AddNoteContainer";
+import { PlayersDetailsContainer } from "./pages/Players/Details/PlayerDetailsContainer";
 import { ListPlayersContainer } from "./pages/Players/ListPlayers/ListPlayersContainer";
 import { RegisterPageContainer as Register } from "./pages/RegisterPage/RegisterPageContainer";
 import UserProfile from "./pages/UserProfile/UserProfileContainer";
 import { useAppSelector } from "./store";
-import { PlayersDetailsContainer } from "./pages/Players/Details/PlayerDetailsContainer"
-import { AddNoteContainer } from "./pages/Players/AddNote/AddNoteContainer";
 
 function App() {
   const isLoggedIn = useAppSelector((state) => state.loggedIn);
@@ -51,12 +51,16 @@ function App() {
         />
         <Route path="/profile" element={<UserProfile />} />
         <Route path="/players" element={<ListPlayersContainer />} />
-        <Route path="/player/:id/edit" element={<ListPlayersContainer />} />//TODO
-        <Route path="/player/:id/delete" element={<ListPlayersContainer />} />//TODO
-        <Route path="/player/:id/note/create" element={<AddNoteContainer />} />//TODO
-        <Route path="/player/:id" element={<PlayersDetailsContainer />} /> //TODO
-        <Route path="/player/create" element={<ListPlayersContainer />} />
+        <Route path="/player/:id/edit" element={<ListPlayersContainer />} />
         //TODO
+        <Route path="/player/:id/delete" element={<ListPlayersContainer />} />
+        //TODO
+        <Route path="/player/:id/note/create" element={<AddNoteContainer />} />
+        //TODO
+        <Route path="/player/:id" element={<PlayersDetailsContainer />} />{" "}
+        //TODO
+        <Route path="/player/:id" element={<ListPlayersContainer />} />
+        <Route path="/player/create" element={<ListPlayersContainer />} />
         <Route
           path="/profile"
           element={
