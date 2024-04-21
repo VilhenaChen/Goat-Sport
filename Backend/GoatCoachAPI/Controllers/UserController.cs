@@ -1,12 +1,12 @@
 ﻿using GoatCoachAPI.Contracts;
+using GoatCoachAPI.Data;
 using GoatCoachAPI.Data.Models;
 using GoatCoachAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
-using System.Text.Json;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 
 namespace GoatCoachAPI.Controllers
 {
@@ -14,14 +14,18 @@ namespace GoatCoachAPI.Controllers
 	[ApiController]
 	public class UserController : ControllerBase
 	{
+		private readonly DataContext context;
 		private readonly UserManager<User> userManager;
+		private readonly ICalendarRepository calendarRepository;
 		private readonly ITeamRepository teamRepository;
 		private readonly ISportRepository sportRepository;
 		private readonly ISportTeamRepository sportTeamRepository;
 
-		public UserController(UserManager<User> _userManager, ITeamRepository _teamRepository, ISportRepository _sportRepository, ISportTeamRepository _sportTeamRepository)
+		public UserController(DataContext context, UserManager<User> _userManager, ICalendarRepository _calendarRepository, ITeamRepository _teamRepository, ISportRepository _sportRepository, ISportTeamRepository _sportTeamRepository)
 		{
+			this.context = context;
 			userManager = _userManager;
+			calendarRepository = _calendarRepository;
 			teamRepository = _teamRepository;
 			sportRepository = _sportRepository;
 			sportTeamRepository = _sportTeamRepository;
@@ -62,6 +66,10 @@ namespace GoatCoachAPI.Controllers
 					};
 					await teamRepository.CreateAsync(team);
 
+					var dateStart = DateOnly.FromDateTime(DateTime.Now);
+					var dateEnd = DateOnly.FromDateTime(DateTime.Now.AddYears(1));
+
+					List<Calendar> calendars = new List<Calendar>();
 					foreach (var sportId in model.Sports)
 					{
 						var sportTeam = new Sport_Team
@@ -71,8 +79,25 @@ namespace GoatCoachAPI.Controllers
 						};
 
 						await sportTeamRepository.CreateAsync(sportTeam);
-					}
+						calendars.Add(
+							new Calendar
+							{
+								SeasonStart = dateStart,
+								SeasonEnd = dateEnd,
+								TeamId = team.Id,
+								SportId = sportId
+							}
+						);
 
+						string sql = "INSERT INTO CALENDARS VALUES(@SeasonStart, @SeasonEnd, @TeamId, @SportId)";
+						List<SqlParameter> parameterList = new List<SqlParameter>();
+						parameterList.Add(new SqlParameter("@SeasonStart", dateStart));
+						parameterList.Add(new SqlParameter("@SeasonEnd", dateEnd));
+						parameterList.Add(new SqlParameter("@TeamId", team.Id));
+						parameterList.Add(new SqlParameter("@SportId", sportId));
+						SqlParameter[] parameters = parameterList.ToArray();
+						context.Database.ExecuteSqlRaw(sql, parameters);
+					}
 
 					return Ok();
 				}
@@ -84,7 +109,7 @@ namespace GoatCoachAPI.Controllers
 		// GET: User/GetUserTeamSport/{email}
 		[Authorize]
 		[HttpGet]
-		public async Task<ActionResult<GetUserTeamSportVM>> GetUserTeamSport([FromBody]string email)
+		public async Task<ActionResult<GetUserTeamSportVM>> GetUserTeamSport([FromBody] string email)
 		{
 			var user = await userManager.FindByEmailAsync(email);
 
@@ -96,7 +121,7 @@ namespace GoatCoachAPI.Controllers
 			var sportTeam = await sportTeamRepository.GetSportTeamByTeamId(team.Id);
 
 			List<int> sports = new List<int>();
-			foreach(var sport in sportTeam)
+			foreach (var sport in sportTeam)
 			{
 				sports.Add(sport.SportId);
 			}
@@ -110,10 +135,10 @@ namespace GoatCoachAPI.Controllers
 			return Ok(result);
 		}
 
-        // GET: User/GetUserDetails/{id}
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult<GetUserDetailsVM>> GetUserDetails(string email)
+		// GET: User/GetUserDetails/{id}
+		[Authorize]
+		[HttpGet]
+		public async Task<ActionResult<GetUserDetailsVM>> GetUserDetails(string email)
 		{
 			var user = await userManager.FindByEmailAsync(email);
 
@@ -128,7 +153,7 @@ namespace GoatCoachAPI.Controllers
 				Email = user.Email
 			};
 
-        }
+		}
 
 	}
 }

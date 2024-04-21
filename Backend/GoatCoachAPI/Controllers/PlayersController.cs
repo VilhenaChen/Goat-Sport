@@ -27,9 +27,9 @@ namespace GoatCoachAPI.Controllers
 
 		// GET: /Players
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<Player>>> GetPlayers()
+		public async Task<ActionResult<List<Player>>> GetPlayers()
 		{
-			return await _context.Players.ToListAsync();
+			return Ok(await playerRepository.GetAllAsync());
 		}
 
 		// GET: /Players/5
@@ -91,7 +91,6 @@ namespace GoatCoachAPI.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-
 				var sportTeamResult = await sportTeamRepository.GetSportTeamByTeamId(playerModel.TeamId);
 				if (sportTeamResult.IsNullOrEmpty() || !sportTeamResult.Exists(st => st.SportId == playerModel.SportId))
 				{
