@@ -3,6 +3,7 @@ using GoatCoachAPI.Data;
 using GoatCoachAPI.Data.Models;
 using GoatCoachAPI.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,15 +33,16 @@ builder.Services.AddScoped<ISubstituteTeamRepository, SubstituteTeamRepository>(
 builder.Services.AddScoped<ISubstituteTeamPlayersRepository, SubstituteTeamPlayersRepository>();
 builder.Services.AddScoped<IPracticeRepository, PracticeRepository>();
 builder.Services.AddScoped<IPracticePlayersRepository, PracticePlayersRepository>();
+builder.Services.AddScoped<INoteRepository, NoteRepository>();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+//if (app.Environment.IsDevelopment())
+//{
 	app.UseSwagger();
 	app.UseSwaggerUI();
-}
+//}
 
 app.MapIdentityApi<User>();
 

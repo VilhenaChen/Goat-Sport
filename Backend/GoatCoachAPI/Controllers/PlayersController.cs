@@ -17,13 +17,16 @@ namespace GoatCoachAPI.Controllers
 		private readonly DataContext _context;
 		private readonly IPlayerRepository playerRepository;
 		private readonly ISportTeamRepository sportTeamRepository;
+        private readonly INoteRepository noteRepository;
 
-		public PlayersController(DataContext context, IPlayerRepository _playerRepository, ISportTeamRepository _sportTeamRepository)
+        public PlayersController(DataContext context, IPlayerRepository _playerRepository, ISportTeamRepository _sportTeamRepository, INoteRepository _noteRepository)
 		{
 			_context = context;
 			playerRepository = _playerRepository;
 			sportTeamRepository = _sportTeamRepository;
-		}
+			noteRepository = _noteRepository;
+
+        }
 
 		// GET: /Players
 		[HttpGet]
@@ -132,5 +135,34 @@ namespace GoatCoachAPI.Controllers
 		{
 			return _context.Players.Any(e => e.Id == id);
 		}
-	}
+
+        // GET: /Players/GetPlayerNotes
+        [HttpGet("{playerId}")]
+		public async Task<ActionResult<List<GetNotesOfPlayerVM>>> GetPlayerNotes(int playerId)
+		{
+			var player = await playerRepository.GetByIdAsync(playerId);
+
+			if (player == null)
+			{
+				return NotFound("A Player with id:" + playerId + " does not exist");
+			}
+
+			player.Notes = await noteRepository.GetNoteListByPlayerId(playerId);
+
+            List<GetNotesOfPlayerVM> notes = new List<GetNotesOfPlayerVM>();
+            foreach (var note in player.Notes)
+			{
+				notes.Add(new GetNotesOfPlayerVM
+				{
+					Title = note.Title,
+					Description = note.Description,
+					Date = note.Date.ToString()
+				});
+
+            }
+
+            return Ok(notes);
+
+		}
+    }
 }
