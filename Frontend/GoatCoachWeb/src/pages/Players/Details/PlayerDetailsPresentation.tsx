@@ -1,25 +1,14 @@
-import {
-  Avatar,
-  Button,
-  InputAdornment,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  TextField,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Button, Typography, styled } from "@mui/material";
 import { memo } from "react";
 import { BottomMenu } from "../../../components/BottomMenu";
 import { CoachIcon } from "../../../components/CoachIcon";
 import { HeaderContainer } from "../../../components/Header";
-import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import PlayerAvatar from "../../../assets/playerAvatar.svg";
-import NoPlayers from "../../../assets/NoPlayers.svg";
+import RedCard from "../../../assets/RedCard.svg";
+import YellowCard from "../../../assets/YellowCard.svg";
 import TabsComponent from "../../../components/TabsComponent";
-import OpenInFullRoundedIcon from '@mui/icons-material/OpenInFullRounded';
-
+import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
+import MedicalServicesRoundedIcon from '@mui/icons-material/MedicalServicesRounded';
 interface Player {
   id: number;
   name: string;
@@ -30,6 +19,17 @@ interface Note {
   id: number;
   title: string;
   date: string;
+}
+
+interface Card {
+  type: string;
+  name: string;
+  date: string;
+}
+interface Injury {
+  title: string;
+  dateStart: string;
+  dateEnd: string;
 }
 
 const PageContainer = styled("div")({
@@ -67,7 +67,6 @@ const InfoContainer = styled("div")({
 });
 
 const NoteDiv = styled("div")({
-  
   padding: "16px",
   background: "#F2F489",
 });
@@ -85,15 +84,59 @@ const TitleDate = styled(Typography)({
   color: "rgba(51,101,138,0.75)",
 });
 
+const TitleNoteInjury = styled(Typography)({
+  textOverflow: "ellipsis",
+  textWrap: "nowrap",
+  overflow: "hidden",
+  fontSize: "22px",
+  textAlign: "left",
+  color: "#fff",
+});
+const TitleDateInjury = styled(Typography)({
+  fontSize: "12px",
+  textAlign: "left",
+  color: "#fff",
+});
 const FloatingButton = styled("div")({
   float: "right",
 });
 
+const Punishment = styled("div")({
+  background: "#D9D9D9",
+  display: "flex",
+  padding: "16px",
+  gap: "32px",
+  borderRadius: "25px"
+});
+
 const NoteContainer = styled("div")({
-  display:"grid",
+  display: "grid",
   gridTemplateColumns: "50% 50%",
   position: "relative",
   columnGap: "16px",
+  marginTop: "16px",
+});
+
+const InjuriesContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
+  marginTop: "16px",
+});
+
+const InjuryDiv = styled("div")({
+  background: "#33658A",
+  display: "flex",
+  padding: "16px",
+  gap: "32px",
+  borderRadius: "25px",
+});
+
+
+const PunishmentsContainer = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "16px",
   marginTop: "16px",
 });
 const ActionsButton = styled(Button)({});
@@ -106,7 +149,9 @@ interface PlayerDetailsPresentationProps {
   onChangeTab: (tab: string) => void;
   sport: string;
   notes: Note[];
-  handleNoteClick: (id:number)=>void;
+  handleNoteClick: (id: number) => void;
+  punishments: Card[];
+  injuries: Injury[];
 }
 
 export const PlayerDetailsPresentation = memo(
@@ -118,7 +163,9 @@ export const PlayerDetailsPresentation = memo(
     onChangeTab,
     player,
     sport,
-    notes
+    notes,
+    punishments,
+    injuries
   }: PlayerDetailsPresentationProps) => {
     return (
       <PageContainer>
@@ -173,13 +220,18 @@ export const PlayerDetailsPresentation = memo(
           </>
         ) : null}
 
-        
         {profileTabChosen === "Notes" ? (
           <>
             <NoteContainer>
               {notes.map((note) => (
-                <NoteDiv onClick={()=>{handleNoteClick(note.id)}} >
-                  <FloatingButton><OpenInFullRoundedIcon/></FloatingButton>
+                <NoteDiv
+                  onClick={() => {
+                    handleNoteClick(note.id);
+                  }}
+                >
+                  <FloatingButton>
+                    <OpenInFullRoundedIcon />
+                  </FloatingButton>
                   <TitleNote>{note.title}</TitleNote>
                   <TitleDate className="date">{note.date}</TitleDate>
                 </NoteDiv>
@@ -194,6 +246,44 @@ export const PlayerDetailsPresentation = memo(
                 Add Note
               </ActionsButton>
             </ActionContainer>
+          </>
+        ) : null}
+
+        {profileTabChosen === "Punishments" ? (
+          <>
+            <PunishmentsContainer>
+              {punishments.map((card) => (
+                <Punishment>
+                  {card.type == "red" ? (
+                    <img src={RedCard} alt="Red Card Image" />
+                  ) : (
+                    <img src={YellowCard} alt="Red Card Image" />
+                  )}
+
+                  <div>
+                    <TitleNote>{card.name}</TitleNote>
+                    <TitleDate className="date">{card.date}</TitleDate>
+                  </div>
+                </Punishment>
+              ))}
+            </PunishmentsContainer>
+          </>
+        ) : null}
+
+        {profileTabChosen === "Injuries" ? (
+          <>
+            <InjuriesContainer>
+              {injuries.map((injury) => (
+                <InjuryDiv>
+                  <MedicalServicesRoundedIcon style={{fontSize:"40px", alignSelf:"center", color: "#fff"}}/>
+                  <div>
+                    <TitleNoteInjury>{injury.title}</TitleNoteInjury>
+                    <TitleDateInjury className="date">Start: {injury.dateStart}</TitleDateInjury>
+                    <TitleDateInjury className="date">Return: {injury.dateEnd}</TitleDateInjury>
+                  </div>
+                </InjuryDiv>
+              ))}
+            </InjuriesContainer>
           </>
         ) : null}
         <BottomMenu />
