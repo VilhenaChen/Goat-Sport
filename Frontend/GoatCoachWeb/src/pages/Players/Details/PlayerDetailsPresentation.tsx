@@ -1,5 +1,12 @@
-import { Button, Typography, styled } from "@mui/material";
-import { memo } from "react";
+import {
+  Backdrop,
+  Button,
+  Modal,
+  Typography,
+  css,
+  styled,
+} from "@mui/material";
+import { memo, useState } from "react";
 import { BottomMenu } from "../../../components/BottomMenu";
 import { CoachIcon } from "../../../components/CoachIcon";
 import { HeaderContainer } from "../../../components/Header";
@@ -8,7 +15,7 @@ import RedCard from "../../../assets/RedCard.svg";
 import YellowCard from "../../../assets/YellowCard.svg";
 import TabsComponent from "../../../components/TabsComponent";
 import OpenInFullRoundedIcon from "@mui/icons-material/OpenInFullRounded";
-import MedicalServicesRoundedIcon from '@mui/icons-material/MedicalServicesRounded';
+import MedicalServicesRoundedIcon from "@mui/icons-material/MedicalServicesRounded";
 interface Player {
   id: number;
   name: string;
@@ -19,6 +26,7 @@ interface Note {
   id: number;
   title: string;
   date: string;
+  description: string;
 }
 
 interface Card {
@@ -69,6 +77,7 @@ const InfoContainer = styled("div")({
 const NoteDiv = styled("div")({
   padding: "16px",
   background: "#F2F489",
+  borderRadius: "25px",
 });
 const TitleNote = styled(Typography)({
   textOverflow: "ellipsis",
@@ -84,19 +93,6 @@ const TitleDate = styled(Typography)({
   color: "rgba(51,101,138,0.75)",
 });
 
-const TitleNoteInjury = styled(Typography)({
-  textOverflow: "ellipsis",
-  textWrap: "nowrap",
-  overflow: "hidden",
-  fontSize: "22px",
-  textAlign: "left",
-  color: "#fff",
-});
-const TitleDateInjury = styled(Typography)({
-  fontSize: "12px",
-  textAlign: "left",
-  color: "#fff",
-});
 const FloatingButton = styled("div")({
   float: "right",
 });
@@ -106,7 +102,8 @@ const Punishment = styled("div")({
   display: "flex",
   padding: "16px",
   gap: "32px",
-  borderRadius: "25px"
+  borderRadius: "25px",
+  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, .25)",
 });
 
 const NoteContainer = styled("div")({
@@ -125,13 +122,27 @@ const InjuriesContainer = styled("div")({
 });
 
 const InjuryDiv = styled("div")({
-  background: "#33658A",
+  background: "#A5CCF2",
   display: "flex",
   padding: "16px",
   gap: "32px",
   borderRadius: "25px",
+  boxShadow: "0px 4px 4px 0px rgba(0, 0, 0, .25)",
 });
 
+const ModalContent = styled("div")({
+  background: "#F2F489",
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: "80%",
+  padding: "16px",
+  gap: "32px",
+  maxHeight:"60%",
+  height:"auto",
+  borderRadius: "25px",
+});
 
 const PunishmentsContainer = styled("div")({
   display: "flex",
@@ -152,7 +163,18 @@ interface PlayerDetailsPresentationProps {
   handleNoteClick: (id: number) => void;
   punishments: Card[];
   injuries: Injury[];
+  open: boolean;
+  handleNoteClickClose: () => void;
+  noteId: number;
 }
+
+const StyledBackdrop = styled(Backdrop)`
+  z-index: -1;
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 0.5);
+  -webkit-tap-highlight-color: transparent;
+`;
 
 export const PlayerDetailsPresentation = memo(
   ({
@@ -165,7 +187,10 @@ export const PlayerDetailsPresentation = memo(
     sport,
     notes,
     punishments,
-    injuries
+    injuries,
+    open,
+    handleNoteClickClose,
+    noteId,
   }: PlayerDetailsPresentationProps) => {
     return (
       <PageContainer>
@@ -237,6 +262,48 @@ export const PlayerDetailsPresentation = memo(
                 </NoteDiv>
               ))}
             </NoteContainer>
+            <div>
+              <Modal
+                aria-labelledby="unstyled-modal-title"
+                aria-describedby="unstyled-modal-description"
+                open={open}
+                onClose={handleNoteClickClose}
+                slots={{ backdrop: StyledBackdrop }}
+              >
+                <>
+                  {
+                    <ModalContent>
+                      <Typography id="unstyled-modal-title" className="title">
+                        {
+                          notes.find((note) => {
+                            return note.id === noteId;
+                          })?.title
+                        }
+                      </Typography>
+                      <div style={{overflow:"scroll", maxHeight:"300px"}}>
+                        <Typography
+                          id="unstyled-modal-description"
+                          className="modal-description"
+                        >
+                          {
+                            notes.find((note) => {
+                              return note.id === noteId;
+                            })?.description
+                          }
+                        </Typography>
+
+                      </div>
+                      
+                      <Typography style={{fontSize:"16px", marginBottom:"0px"}}>{`Created at ${
+                        notes.find((note) => {
+                          return note.id === noteId;
+                        })?.date
+                      }`}</Typography>
+                    </ModalContent>
+                  }
+                </>
+              </Modal>
+            </div>
 
             <ActionContainer>
               <ActionsButton
@@ -275,11 +342,21 @@ export const PlayerDetailsPresentation = memo(
             <InjuriesContainer>
               {injuries.map((injury) => (
                 <InjuryDiv>
-                  <MedicalServicesRoundedIcon style={{fontSize:"40px", alignSelf:"center", color: "#fff"}}/>
+                  <MedicalServicesRoundedIcon
+                    style={{
+                      fontSize: "40px",
+                      alignSelf: "center",
+                      color: "#fff",
+                    }}
+                  />
                   <div>
-                    <TitleNoteInjury>{injury.title}</TitleNoteInjury>
-                    <TitleDateInjury className="date">Start: {injury.dateStart}</TitleDateInjury>
-                    <TitleDateInjury className="date">Return: {injury.dateEnd}</TitleDateInjury>
+                    <TitleNote>{injury.title}</TitleNote>
+                    <TitleDate className="date">
+                      Start: {injury.dateStart}
+                    </TitleDate>
+                    <TitleDate className="date">
+                      Return: {injury.dateEnd}
+                    </TitleDate>
                   </div>
                 </InjuryDiv>
               ))}

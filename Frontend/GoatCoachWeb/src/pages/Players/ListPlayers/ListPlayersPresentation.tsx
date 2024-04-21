@@ -17,6 +17,8 @@ import { HeaderContainer } from "../../../components/Header";
 import SearchRoundedIcon from "@mui/icons-material/SearchRounded";
 import PlayerAvatar from "../../../assets/playerAvatar.svg";
 import NoPlayers from "../../../assets/NoPlayers.svg";
+import { Modal } from '@mui/base/Modal';
+
 
 interface Player {
   id: number;

@@ -25,11 +25,13 @@ export const PlayersDetailsContainer = memo(() => {
       id: 1,
       title: "Nota",
       date: "Jun 10",
+      description: "LOREM IPSUM"
     },
     {
       id: 2,
       title: "Nota2",
       date: "Jun 11",
+      description: "LOREM IPSUM"
     },
   ];
 
@@ -61,29 +63,28 @@ export const PlayersDetailsContainer = memo(() => {
   const sport = "Soccer";
 
   const handlePlayerDelete = useCallback((id: number) => {
-    //TODO
-
     navigate(`/player/${id}/delete`);
   }, []);
 
   const handlePlayerEdit = useCallback((id: number) => {
-    //TODO
-
     navigate(`/player/${id}/edit`);
   }, []);
 
   const handleNoteClick = useCallback((id: number) => {
-    //TODO
-    const test = id;
-    id = test;
-    // navigate(`/player/${id}/edit`);
-    // togglepopup
+    setNoteId(id);
+    setOpen(true);
+    
+  }, []);
+  const handleNoteClickClose = useCallback(() => {
+    setOpen(false);
   }, []);
   const [profileTabChosen, setProfileTabChosen] = useState<string>("Info");
 
   const handleProfileTabChange = useCallback((tab: string) => {
     setProfileTabChosen(tab);
   }, []);
+  const [noteId, setNoteId]= useState(-1);
+  const [open, setOpen] = useState(false);
 
   return (
     <PlayerDetailsPresentation
@@ -97,6 +98,9 @@ export const PlayersDetailsContainer = memo(() => {
       punishments={cards}
       handleNoteClick={handleNoteClick}
       injuries={injuries}
+      open={open}
+      noteId={noteId}
+      handleNoteClickClose={handleNoteClickClose}
     />
   );
 });
