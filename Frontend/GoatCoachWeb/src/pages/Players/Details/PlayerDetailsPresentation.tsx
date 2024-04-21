@@ -166,6 +166,7 @@ interface PlayerDetailsPresentationProps {
   open: boolean;
   handleNoteClickClose: () => void;
   noteId: number;
+  handleAddNote: (id:number)=>void;
 }
 
 const StyledBackdrop = styled(Backdrop)`
@@ -189,6 +190,7 @@ export const PlayerDetailsPresentation = memo(
     punishments,
     injuries,
     open,
+    handleAddNote,
     handleNoteClickClose,
     noteId,
   }: PlayerDetailsPresentationProps) => {
@@ -308,7 +310,7 @@ export const PlayerDetailsPresentation = memo(
             <ActionContainer>
               <ActionsButton
                 variant="contained"
-                onClick={() => handlePlayerDelete(player.id)}
+                onClick={() => handleAddNote(player.id)}
               >
                 Add Note
               </ActionsButton>

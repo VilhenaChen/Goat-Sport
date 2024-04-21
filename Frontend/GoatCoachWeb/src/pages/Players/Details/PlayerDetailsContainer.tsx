@@ -70,6 +70,12 @@ export const PlayersDetailsContainer = memo(() => {
     navigate(`/player/${id}/edit`);
   }, []);
 
+  
+  const handleAddNote = useCallback((id: number) => {
+    navigate(`/player/${id}/note/create`);
+  }, []);
+
+
   const handleNoteClick = useCallback((id: number) => {
     setNoteId(id);
     setOpen(true);
@@ -101,6 +107,7 @@ export const PlayersDetailsContainer = memo(() => {
       open={open}
       noteId={noteId}
       handleNoteClickClose={handleNoteClickClose}
+      handleAddNote={handleAddNote}
     />
   );
 });
