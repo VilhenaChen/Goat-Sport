@@ -18,5 +18,10 @@ namespace GoatCoachAPI.Repositories
 		{
 			return await context.Calendars.Where(c => c.TeamId == teamId && c.SportId == sportId).FirstOrDefaultAsync();
 		}
+
+		public async Task<Calendar> GetByTeamSportIdsIncludeMatchesAsync(int teamId, int sportId)
+		{
+			return await context.Calendars.Where(c => c.TeamId == teamId && c.SportId == sportId).Include(c=>c.Matches).Include(c=>c.Practices).FirstOrDefaultAsync();
+		}
 	}
 }
