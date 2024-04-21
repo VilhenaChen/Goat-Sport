@@ -24,7 +24,7 @@ const PageContainer = styled("div")({
   position: "relative",
   overflowY: "hidden",
   marginTop: "90px",
-  padding: "0px 36px 88px 36px",
+  padding: "0px 36px 200px 36px",
   display: "flex",
   flexDirection: "column",
   gap: "32px",
@@ -182,7 +182,9 @@ const CreateEventPresentation = memo(
                     {selectedMainPlayers.map((player) => (
                       <Chip
                         key={player}
-                        label={players.find((p) => p.id === player)?.name}
+                        label={`${
+                          players.find((p) => p.id === player)?.name
+                        } (${players.find((p) => p.id === player)?.position})`}
                       />
                     ))}
                   </Box>
@@ -191,7 +193,7 @@ const CreateEventPresentation = memo(
               >
                 {players.map((player) => (
                   <MenuItem key={player.id} value={player.id}>
-                    {player.name}
+                    {`${player.name} (${player.position})`}
                   </MenuItem>
                 ))}
               </Select>
@@ -213,7 +215,11 @@ const CreateEventPresentation = memo(
                       {selectedSparePlayers.map((player) => (
                         <Chip
                           key={player}
-                          label={players.find((p) => p.id === player)?.name}
+                          label={`${
+                            players.find((p) => p.id === player)?.name
+                          } (${
+                            players.find((p) => p.id === player)?.position
+                          })`}
                         />
                       ))}
                     </Box>
@@ -222,7 +228,7 @@ const CreateEventPresentation = memo(
                 >
                   {players.map((player) => (
                     <MenuItem key={player.id} value={player.id}>
-                      {player.name}
+                      {`${player.name} (${player.position})`}
                     </MenuItem>
                   ))}
                 </Select>

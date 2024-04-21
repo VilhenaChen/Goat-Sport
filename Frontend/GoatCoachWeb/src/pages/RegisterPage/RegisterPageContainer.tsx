@@ -8,7 +8,6 @@ export const RegisterPageContainer = memo(() => {
   const navigate = useNavigate();
 
   const handleRegister = useCallback(() => {
-    //TODO
     navigate("/");
   }, [navigate]);
 

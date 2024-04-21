@@ -11,7 +11,6 @@ export const LoginPageContainer = memo(() => {
   const dispatch = useDispatch();
 
   const handleLogin = useCallback(() => {
-    //TODO
     dispatch(
       userActions.loginUser({ name: "TEST", teamName: "TEST", token: "TEST" })
     );

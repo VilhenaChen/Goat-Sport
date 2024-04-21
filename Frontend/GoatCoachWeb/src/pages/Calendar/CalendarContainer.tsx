@@ -19,58 +19,6 @@ const CalendarContainer = memo(() => {
       tabs={["Upcomming Events", "Past Events"]}
       activeTab={tabChosen}
       onTabClick={handleClickTab}
-      pastEvents={[
-        {
-          month: "MAI",
-          events: [
-            {
-              day: 18,
-              month: "MAI",
-              title: "Portimonense",
-              gameLocation: GameLocationEnum.HOME,
-              eventType: EventType.GAME,
-            },
-            {
-              day: 18,
-              month: "MAI",
-              title: "Portimonense",
-              gameLocation: GameLocationEnum.AWAY,
-              eventType: EventType.GAME,
-            },
-            {
-              day: 18,
-              month: "MAI",
-              title: "Sporting",
-              gameLocation: GameLocationEnum.HOME,
-              eventType: EventType.GAME,
-            },
-          ],
-        },
-        {
-          month: "MAI",
-          events: [
-            {
-              day: 26,
-              month: "MAI",
-              title: "Porto",
-              gameLocation: GameLocationEnum.HOME,
-              eventType: EventType.GAME,
-            },
-          ],
-        },
-        {
-          month: "MAI",
-          events: [
-            {
-              day: 31,
-              month: "MAI",
-              title: "Benfica",
-              gameLocation: GameLocationEnum.HOME,
-              eventType: EventType.GAME,
-            },
-          ],
-        },
-      ].reverse()}
       upcommingEvents={[
         {
           month: "MAI",
@@ -78,45 +26,101 @@ const CalendarContainer = memo(() => {
             {
               day: 18,
               month: "MAI",
-              title: "Portimonense",
+              title: "Porto B",
               gameLocation: GameLocationEnum.HOME,
               eventType: EventType.GAME,
             },
             {
-              day: 18,
+              day: 24,
               month: "MAI",
-              title: "Portimonense",
+              title: "Treino de Atacantes",
+              eventType: EventType.PRACTICE,
+            },
+            {
+              day: 31,
+              month: "MAI",
+              title: "Sporting",
               gameLocation: GameLocationEnum.AWAY,
               eventType: EventType.GAME,
             },
+          ],
+        },
+        {
+          month: "JUN",
+          events: [
             {
-              day: 18,
-              month: "MAI",
-              title: "Sporting",
+              day: 9,
+              month: "JUN",
+              title: "Preparação Jogo",
+              eventType: EventType.PRACTICE,
+            },
+            {
+              day: 10,
+              month: "JUN",
+              title: "Benfica",
               gameLocation: GameLocationEnum.HOME,
               eventType: EventType.GAME,
             },
           ],
         },
         {
-          month: "MAI",
+          month: "JUL",
           events: [
             {
-              day: 26,
-              month: "MAI",
-              title: "Treino de pernas",
+              day: 4,
+              month: "JUL",
+              title: "Cova da Piedade",
+              gameLocation: GameLocationEnum.AWAY,
+              eventType: EventType.GAME,
+            },
+          ],
+        },
+      ]}
+      pastEvents={[
+        {
+          month: "MAR",
+          events: [
+            {
+              day: 30,
+              month: "MAR",
+              title: "Covilhã",
+              gameLocation: GameLocationEnum.AWAY,
+              eventType: EventType.GAME,
+            },
+            {
+              day: 15,
+              month: "MAR",
+              title: "Treino de Guarda Redes",
               eventType: EventType.PRACTICE,
             },
           ],
         },
         {
-          month: "MAI",
+          month: "FEV",
           events: [
             {
-              day: 31,
-              month: "MAI",
-              title: "Benfica",
+              day: 9,
+              month: "JUN",
+              title: "Preparação Jogo",
+              eventType: EventType.PRACTICE,
+            },
+            {
+              day: 10,
+              month: "JUN",
+              title: "Braga B",
               gameLocation: GameLocationEnum.HOME,
+              eventType: EventType.GAME,
+            },
+          ],
+        },
+        {
+          month: "JAN",
+          events: [
+            {
+              day: 18,
+              month: "JAN",
+              title: "Santa Clara",
+              gameLocation: GameLocationEnum.AWAY,
               eventType: EventType.GAME,
             },
           ],

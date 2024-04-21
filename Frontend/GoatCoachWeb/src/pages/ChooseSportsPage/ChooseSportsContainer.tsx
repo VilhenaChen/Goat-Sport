@@ -13,7 +13,6 @@ export const ChooseSportsContainer = memo(() => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleSportSelection = () => {
-    //TODO
     dispatch(userActions.changeSport({ chosenSport: "Football" }));
     navigate("/");
   };
