@@ -204,6 +204,7 @@ export const PlayerDetailsPresentation = memo(
         <TabsComponent
           activeTab={profileTabChosen}
           onTabClick={onChangeTab}
+          fixed={false}
           tabs={["Info", "Notes", "Punishments", "Injuries"]}
         />
 

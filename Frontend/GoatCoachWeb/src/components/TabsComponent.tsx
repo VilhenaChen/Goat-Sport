@@ -42,12 +42,6 @@ const TabsComponent = memo(
               value={activeTab}
               onChange={(e, value) => handleProfileTabChange(value)}
               variant="scrollable"
-              sx={{
-                position: "fixed",
-                backgroundColor: "#FFFFFF",
-                zIndex: 2,
-                paddingTop: 0,
-              }}
             >
               {tabs.map((tab) => (
                 <Tab label={tab} value={tab} key={tab} />
